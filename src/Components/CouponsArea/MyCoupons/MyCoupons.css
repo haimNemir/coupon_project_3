@@ -1,0 +1,13 @@
+.MyCoupons {
+	
+}
+
+.sort_bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(92, 55, 26);
+    color: rgb(37, 24, 13);
+    font-size: larger;
+    font-weight: bolder;
+}

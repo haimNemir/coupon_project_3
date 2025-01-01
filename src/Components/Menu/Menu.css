@@ -1,0 +1,14 @@
+.Menu {
+	height: 5vw;
+    min-height: 30px;
+    background-color: rgb(37, 24, 13);
+    align-items: center;
+    font-size: larger;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.nuv_link{
+    color: brown;
+    text-decoration: none; 
+}

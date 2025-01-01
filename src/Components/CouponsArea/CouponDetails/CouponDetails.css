@@ -1,0 +1,8 @@
+.CouponDetails {
+	border: 1px solid black;
+    background-color: rgb(212, 168, 114);
+    width: 30vw;    
+    color: rgb(106, 31, 31);
+    font-size: large;
+    font-weight: bold;
+}
