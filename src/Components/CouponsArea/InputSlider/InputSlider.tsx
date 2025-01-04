@@ -20,10 +20,8 @@ interface DataFormParent {
     setSliderValue: (updated: number) => void
 }
 
-
-
 export default function InputSlider(parentData: DataFormParent) {
-    let slider = parentData.savedValue > 0 ? parentData.savedValue : parentData.initialMaxValue;
+    let slider = parentData.savedValue === 1000 ? parentData.initialMaxValue : parentData.savedValue;
     const [value, setValue] = useState(slider);
 
     //slider
@@ -71,7 +69,7 @@ export default function InputSlider(parentData: DataFormParent) {
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         inputProps={{
-                            step: 10,
+                            step: 1,
                             min: 0,
                             max: parentData.initialMaxValue,
                             type: 'number',

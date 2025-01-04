@@ -1,3 +1,5 @@
+
+
 export class Company {
     id: number;
     name: string;
@@ -9,8 +11,8 @@ export class Company {
         name: string,
         email: string,
         password: string
-    ){
-        this.id =id;
+    ) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;

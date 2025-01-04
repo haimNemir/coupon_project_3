@@ -9,6 +9,8 @@ import { CouponDetails } from "../CouponsArea/CouponDetails/CouponDetails";
 import { MyCoupons } from "../CouponsArea/MyCoupons/MyCoupons";
 import { Coupon } from "../../Models/Coupon";
 
+import { UserProfile } from "../AuthArea/UserProfile/UserProfile";
+
 export function Routing(): JSX.Element {
     return (
         <div className="Routing">
@@ -17,10 +19,11 @@ export function Routing(): JSX.Element {
                 <Route path="/companies" Component={Companies} />
                 <Route
                     path="/coupons_list"
-                    element={<CouponsList list={[]} />}
+                    element={<CouponsList list={[]} firstTimeRequested={true}/>}
                 />
                 <Route path="/get_one_coupon/:id" Component={CouponDetails} />
                 <Route path="/get_all_coupons" Component={MyCoupons} />
+                <Route path="/user_profile" Component={UserProfile} />
                 <Route path="*" Component={NotFound} />
             </Routes>
         </div>

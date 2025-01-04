@@ -1,9 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 export interface JwtToken{
     withIssuer: string;
-    withIssuedAt: Date;
+    withIssuedAt: number;
     username: string;
     email: string;
     role: string;
@@ -11,8 +12,7 @@ export interface JwtToken{
     token: string;
 }
 
-// const tokenFromCache = jwtDecode<JwtToken>(localStorage.my_token); // my code make problem because he did not found token in localStorage
-const tokenFromCache = (() => { // GPT help:
+const tokenFromCache = (() => { 
     try {
         const token = localStorage.my_token;
         if (!token || typeof token !== "string") {
@@ -27,7 +27,7 @@ const tokenFromCache = (() => { // GPT help:
 
 const initState:JwtToken = {
     withIssuer:      tokenFromCache ? tokenFromCache.withIssuer : "" ,
-    withIssuedAt:    tokenFromCache ? new Date(tokenFromCache.withIssuedAt) : new Date(),
+    withIssuedAt:    tokenFromCache ? tokenFromCache.withIssuedAt : 0,
     username:        tokenFromCache ? tokenFromCache.username : "" ,
     email:           tokenFromCache ? tokenFromCache.email : "" ,
     role:            tokenFromCache ? tokenFromCache.role : "" ,
@@ -54,17 +54,14 @@ export const authSlice = createSlice({
             state.role = "";
             state.username = "";
             state.withIssuer = "";
-            state.withIssuedAt = new Date();
+            state.withIssuedAt = 0;
             state.withExpiresAt = 0;
             state.token = "";
         }
     }
 })
 
-export const clientType = initState.role;
-export const {login, logout} = authSlice.actions; 
-export const AuthStore = configureStore({
+export const {login, logout} = authSlice.actions;   //+ exporting the methods of the cache to enable saving data in the cache or deleting data from the cache ext. , we exporting in this way to enable to get the methods insantlly from "dispatch(login(...))" and we dont need to create - authStore.actions.login(...) .
+export const authStore = configureStore({  //+ over here we exporting the hole object, its relevante when we have more then one Slice that we can export slice of "Auth" and slice of "Companies".  configureStore() - return two methods, 1: getState() , return what the value now in the cache, 2: dispetch() , give you the option to run the "actions" methods.
     reducer: authSlice.reducer
 })
-
-

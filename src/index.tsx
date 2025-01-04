@@ -4,6 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Routing } from './Components/Routing/Routing';
 import axios from 'axios';
 import { Menu } from './Components/Menu/Menu';
+import { useEffect } from 'react';
+import { authStore } from './Redux/AuthStore';
+import { Login } from './Components/AuthArea/Login/Login';
 
 axios.interceptors.request.use(function (config) {// + before any request to the server, this function will add this to the request to the Header if there is a token inside the local storge.
   if (localStorage.my_token)
@@ -13,8 +16,10 @@ axios.interceptors.request.use(function (config) {// + before any request to the
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-
 );
+
+
+
 root.render(
   <BrowserRouter>
       <Menu/>
@@ -26,3 +31,4 @@ root.render(
 //TODO: add button show password and remember me in login component
 //TODO: 2/10 Add a cart to purchase products
 //TODO: 2/10 add a button of <previes page> to go back from where you came , and not use the default button of chrome. 
+//TODO: 8/10 remove <Menu> from login component

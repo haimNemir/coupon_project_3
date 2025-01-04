@@ -1,6 +1,6 @@
 import authService from "../../../Services/AuthService";
 import "./Login.css";
-import { AuthStore, login } from "../../../Redux/AuthStore";
+import { authStore, login } from "../../../Redux/AuthStore";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -19,12 +19,12 @@ export function Login(): JSX.Element {
         authService.login(form.email, form.password, form.role)
             .then(token => {
                 localStorage.my_token = token;
-                AuthStore.dispatch(login(token));
+                authStore.dispatch(login(token));
                 if(form.role === "Customer"){
                     navigate("/coupons_list")
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => alert(error))
     }
 
 
@@ -46,3 +46,4 @@ export function Login(): JSX.Element {
         </div>
     );
 }
+

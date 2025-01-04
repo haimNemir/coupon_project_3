@@ -1,6 +1,6 @@
 import { Coupon } from "./Coupon";
 
-export class Customer {
+export class Customer{
     id?: number | undefined;
     firstName: string;
     lastName: string;
@@ -23,5 +23,4 @@ export class Customer {
         this.password = password;
         this.coupons = coupons;
     }
-
 }
