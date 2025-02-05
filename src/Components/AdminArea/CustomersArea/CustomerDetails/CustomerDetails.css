@@ -1,0 +1,42 @@
+.CustomerDetails {
+    border: 1px solid black;
+    border-radius: 8px;
+    max-width: fit-content;
+    padding: 10px;
+    margin: auto;
+    margin-top: 2%;
+    text-align: center;
+    max-width: 50%;
+}
+
+.displayGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1vw;
+}
+
+.GridB{
+    max-height: 18vw;
+    overflow: scroll;
+}
+
+.GridC{
+    grid-column: 1 / 3;
+    grid-column: span 2; 
+    width: 60%;
+    justify-self: center;
+
+}
+
+.GridD{
+    grid-column: 1 / 3;
+    grid-column: span 2; 
+    width: 60%;
+
+    justify-self: center;
+}
+
+.errorMessage{
+    display: inline-block;
+    max-width: 50%;
+}

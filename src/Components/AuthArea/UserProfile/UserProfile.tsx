@@ -38,25 +38,33 @@ export function UserProfile(): JSX.Element {
                 authStore.dispatch(logout()) // to clean the cache
                 localStorage.removeItem("my_token") //remove token from localStorage
                 navigate("/")
-            })  
+            })
     }
 
     return (
         <div className="UserProfile">
             <pre>
-                {role === "Company" ? <div>
-                    <p>Id: {companyDetails?.id}</p>
-                    <p>Name: {companyDetails?.name}</p>
-                    <p>Email: {companyDetails?.email}</p> </div>
-                    :
+                {role === "Company" &&
                     <div>
-                        <p>Id: {customerDetails?.id}</p>
-                        <p>Full name: {customerDetails?.firstName + " " + customerDetails?.lastName}</p>
-                        <p>Email: {customerDetails?.email}</p>
+                        <p>Id: {companyDetails?.id}</p>
+                        <p>Name: {companyDetails?.name}</p>
+                        <p>Email: {companyDetails?.email}</p>
+                    </div>
+                }
+                {role === "Customer" &&
+                    <div>
+                        <p>Id: </p>{customerDetails?.id}
+                        <p>Full name: </p>{customerDetails?.firstName + " " + customerDetails?.lastName}
+                        <p>Email: </p>{customerDetails?.email}
+                    </div>
+                }
+                {role === "Administrator" &&
+                    <div>
+                        <h2>Welcome administrator, how can i help you?</h2>
                     </div>
                 }
             </pre>
-            <button onClick={handleLogout}>Logout</button>
+            <button className="button" onClick={handleLogout}>Logout</button>
         </div>
     );
 }

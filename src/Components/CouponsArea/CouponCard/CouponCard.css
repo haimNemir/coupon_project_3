@@ -1,6 +1,7 @@
 .CouponCard {
 	border: 1px solid black;
-    display: inline-block;
     margin: 3vh;
-    width: 300px;
+    padding: 16px;
+    border-radius: 8px;    
+    
 }

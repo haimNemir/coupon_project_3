@@ -1,6 +1,5 @@
 import { jwtDecode } from "jwt-decode";
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 
 export interface JwtToken{
     withIssuer: string;

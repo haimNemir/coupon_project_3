@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import "./MyCoupons.css";
 import { Coupon } from "../../../Models/Coupon";
 import { CouponsList } from "../CouponsList/CouponsList";
@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { Category } from "../../../Models/Category";
 import InputSlider from "../InputSlider/InputSlider";
 import customerService from "../../../Services/CustomerService";
-
+import { authStore } from "../../../Redux/AuthStore";
+import companyService from "../../../Services/CompanyService";
 
 //to fix: let the client change the slider and push on sort                                      
 interface SortProps {
@@ -15,24 +16,34 @@ interface SortProps {
     byPrice: number;
 }
 
+export const Context = createContext<boolean | null>(null) // send data to his childrens (here we send to <CouponDetails/>) like we send props, but here we didnt need to pass the data throw all the components in the middle. we do it outside of <MyCoupons/> component to prevent from create useContext any time the component rerender. 
+
+
 export function MyCoupons(): JSX.Element {
     // for getting the all selections and return coupons by that
-    const { register, handleSubmit, getValues, setValue } = useForm<SortProps>({ mode: "onSubmit" }); 
+    const { register, handleSubmit, getValues, setValue } = useForm<SortProps>({ mode: "onSubmit" });
 
     //gets purchased coupons of the customer:
     const [coupons, setCoupons] = useState<Coupon[]>([])
-   
+
     useEffect(() => {
         getAllCoupons()
     }, [])
 
+    const clientType = authStore.getState().role;
     //we want to define the most expensive coupon only in the first time the client enter to <MyCoupons> :
     let firstAccess: boolean = true
     function getAllCoupons() {
-        customerService.getCustomerCoupons()
+        let promise: Promise<Coupon[]>;
+        if (clientType === "Company") {
+            promise = companyService.getCompanyCoupons();
+        } else if (clientType === "Customer") {
+            promise = customerService.getCustomerCoupons();
+        }
+        promise!
             .then(result => {
                 setCoupons(result);
-                if(firstAccess){
+                if (firstAccess) {
                     getMostExpensive(result);
                     firstAccess = false;
                 }
@@ -44,13 +55,15 @@ export function MyCoupons(): JSX.Element {
     // gets the expensive coupon from customer coupons to define max value in "slider":
     // coupons.reduce() - gets two coupons and compare them for the most expensive coupon, and return to "highest" the expensive.
     const [mostExpensiveCoupon, setMostExpensiveCoupon] = useState<number>(1000);
-    function getMostExpensive(list: Coupon[]){
+    function getMostExpensive(list: Coupon[]) {
         const expensiveCoupon = list.reduce((highest, current) => {
             return current.price > highest.price ? current : highest
         }, list[0])// list[0]- first initialized to the coupons will be first place in the list.
-        setMostExpensiveCoupon(expensiveCoupon.price + 1) // +1 - because the filter not including the last number himself
-    } 
+        if (list.length > 0) {
+            setMostExpensiveCoupon(expensiveCoupon.price + 1) // +1 - because the filter not including the last number himself
 
+        }
+    }
 
     // define the max value of the slider.
     // we send this method to <InputSlider> to get the return value of the slider, he will call this method and send to her parameters that will save in "sliderValue" 
@@ -70,12 +83,20 @@ export function MyCoupons(): JSX.Element {
     function getSorted(form: SortProps) {
         // Get handle for the cases of selecting "One" category.
         if (form.byCategory.toString() !== "All" && form.byCategory.toString() !== "") {
-            customerService.getCustomerCouponsByCategory(form.byCategory)
+            //gets result from the server depends on client role, as "Promise<Coupon[]>" :
+            let promiseCategory: Promise<Coupon[]>;
+            if (clientType === "Company") {
+                promiseCategory = companyService.getCompanyCouponsByCategory(form.byCategory)
+            }
+            else if (clientType === "Customer") {
+                promiseCategory = customerService.getCustomerCouponsByCategory(form.byCategory)
+            }
+            promiseCategory!
                 .then(result => {
                     setCoupons(result);
                     filterPrice(form, result)
                 })
-                .catch(error => alert(error))
+                .catch(error => alert(error.response.data))
         }
         // Get handle for case of "All"
         else if (form.byCategory.toString() === "All") {
@@ -85,14 +106,23 @@ export function MyCoupons(): JSX.Element {
         else if (form.byCategory.toString() === "") {
             customerService.getCustomerCouponsByPrice(form.byPrice)
                 .then(result => { setCoupons(result) })
-                .catch(error => alert(error))
+                .catch(error => alert(error.response.data))
         }
     }
 
-    function filterPrice(form: SortProps, list: Coupon[]){
+    function filterPrice(form: SortProps, list: Coupon[]) {
         const result = list.filter(coupon => coupon.price < form.byPrice)//if you will add "{coupon.price < form.byPrice}" it will not add the result to the "const result" antil you will add key word "return", unless you will remove the sigh "{}".
         setCoupons(result);
     }
+
+    //gets list of string values from enum "Category" as: "value- FOOD, label- Food" for each one of them 
+    const listOfCategories = Object.keys(Category).map((key) => ({  // do "map" for the list and for each of a value we create two parameters:
+        value: key, // save the value as "FOOD"
+        label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase() // save the value as "Food". key.slice(1) - return new string start from the index[1] (the second letter) until his end.
+    }))
+
+    const [showPurchaseButton] = useState<boolean>(false) 
+
 
     return (
         <div className="MyCoupons">
@@ -101,15 +131,11 @@ export function MyCoupons(): JSX.Element {
                     <select defaultValue={""} {...register("byCategory")}>
                         <option disabled value={""}>Select category</option>
                         <option value={"All"}>All Categories</option>
-                        <option value={"FOOD"}>Food</option>
-                        <option value={"ELECTRICITY"}>Electricity</option>
-                        <option value={"RESTAURANT"}>Restaurant</option>
-                        <option value={"VACATION"}>Vacation</option>
-                        <option value={"FASHION"}>Fashion</option>
-                        <option value={"CINEMA"}>Cinema</option>
-                        <option value={"SPA"}>Spa</option>
-                        <option value={"TECH"}>Tech</option>
-                        <option value={"SPORT"}>Sport</option>
+                        {listOfCategories.map((category) => (
+                            <option key={category.value} value={category.value}>
+                                {category.label}
+                            </option>
+                        ))}
                     </select>
                     <button type="button" onClick={togglePricing}>Price</button> {/*we define the button to type "button" to prevent from him to be default value: "submit"*/}
                     {showPricing ?
@@ -119,7 +145,11 @@ export function MyCoupons(): JSX.Element {
                     <button type="submit">Sort</button>
                 </form>
             </div>
-            {<CouponsList list={coupons} firstTimeRequested={false} />}
+            <div className="couponList">
+                <Context.Provider value={showPurchaseButton}>
+                    {<CouponsList list={coupons} firstTimeRequested={false} />}
+                </Context.Provider>
+            </div>
         </div>
     );
 }

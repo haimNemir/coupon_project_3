@@ -1,3 +1,3 @@
 export enum Category{
-    ALL, FOOD, ELECTRICITY, RESTAURANT, VACATION, FASHION, CINEMA, SPA, TECH, SPORT
+    FOOD = "Food", ELECTRICITY = "Electricity" , RESTAURANT = "Restaurant", VACATION = "Vacation", FASHION = "Fashion", CINEMA = "Cinema", SPA = "Spa", TECH = "Tech", SPORT = "Sport"
 }

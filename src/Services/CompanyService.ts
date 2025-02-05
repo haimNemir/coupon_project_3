@@ -1,3 +1,4 @@
+import { Category } from "../Models/Category";
 import { Company } from "../Models/Company";
 import { Coupon } from "../Models/Coupon";
 import axios from "axios";
@@ -12,15 +13,15 @@ class CompanyService{
     }
 
     async deleteCoupon(id: number){
-        return (await axios.delete<boolean>(`http://localhost:8080/company_controller/delete_coupon?couponId=${id}`)).data;
+        return (await axios.delete(`http://localhost:8080/company_controller/delete_coupon?couponId=${id}`)).data;
     }
 
     async getCompanyCoupons(){
         return (await axios.get<Coupon[]>("http://localhost:8080/company_controller/get_company_coupons")).data;
     }
 
-    async getCompanyCouponsByCategory(category: string){
-        return (await axios.get<Coupon[]>(`http://localhost:8080/company_controller/get_company_coupons_by_category?category=${category}`)).data;
+    async getCompanyCouponsByCategory(category: Category){ 
+        return (await axios.get<Coupon[]>(`http://localhost:8080/company_controller/get_company_coupons_by_category?category=${category.toString()}`)).data;
     }
 
     async getCompanyCouponsByPrice(maxPrice: number){

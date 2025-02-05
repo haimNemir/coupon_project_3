@@ -1,8 +1,65 @@
 .CouponsList {
-	display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 1%;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* רווח בין הכרטיסיות */
+    padding: 20px;
+    width: 96.5%;
+    background-color: bisque;
+
 }
+
+@media (max-width: 768px) {
+    .CouponsList {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 480px) {
+    .CouponsList {
+        grid-template-columns: 1fr;
+    }
+}
+
+.addCoupon{
+    border: 1px solid black;
+    margin: 3vh;
+    padding: 16px;
+    border-radius: 8px;    
+}
+
+.css-1umw9bq-MuiSvgIcon-root{
+    width: 20vw !important;
+    height: 20vw !important;
+}
+
+.form{
+    border: 1px solid black;
+    border-radius: 8px;
+    display: grid;
+    grid-template-areas:
+    "A A"
+    "B C"
+    "D D"
+    "E F"
+    "G G"
+    "H H"
+    "I I"
+    "J J";
+    grid-template-columns: 1fr 1fr;
+    margin: 3vh;
+    padding: 4% ;
+    gap: 1%;
+}
+
+.gridA{grid-area: A;}
+.gridB{grid-area: B;}
+.gridC{grid-area: C;}
+.gridD{grid-area: D;}
+.gridE{grid-area: E;}
+.gridF{grid-area: F;}
+.gridG{grid-area: G;}
+.gridH{
+    grid-area: H;
+}
+.gridI{grid-area: I;}
+.gridJ{grid-area: J;}

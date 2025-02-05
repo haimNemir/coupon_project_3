@@ -1,0 +1,13 @@
+.CompanyDetails{
+    display: flex;
+    justify-content: center;
+    margin-top: 10vw;    
+}
+
+.details {
+	border: 1px solid black;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 2%;
+    
+}

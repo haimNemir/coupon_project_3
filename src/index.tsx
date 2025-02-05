@@ -4,9 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Routing } from './Components/Routing/Routing';
 import axios from 'axios';
 import { Menu } from './Components/Menu/Menu';
-import { useEffect } from 'react';
-import { authStore } from './Redux/AuthStore';
-import { Login } from './Components/AuthArea/Login/Login';
 
 axios.interceptors.request.use(function (config) {// + before any request to the server, this function will add this to the request to the Header if there is a token inside the local storge.
   if (localStorage.my_token)
@@ -21,14 +18,19 @@ const root = ReactDOM.createRoot(
 
 
 root.render(
-  <BrowserRouter>
+  <BrowserRouter> {/* We wrap the entire project with <BrowserRouter> to allow all its children to use "react-router-dom" components, such as NavLink, Route, and others. This ensures smooth transitions between components */}
       <Menu/>
       <Routing />
   </BrowserRouter>
 );
 
-//TODO: update NotFound
 //TODO: add button show password and remember me in login component
 //TODO: 2/10 Add a cart to purchase products
 //TODO: 2/10 add a button of <previes page> to go back from where you came , and not use the default button of chrome. 
-//TODO: 8/10 remove <Menu> from login component
+//TODO: 6/10 on hover on CompanyCard/CustomerCard it will show decription what will happend if you will click
+//TODO: 1/10 theme light dark mode
+//TODO: 1/10 allow customer change password and name
+//TODO: 2/10 if customer didnt purchase coupons the error message is wrong
+//TODO: 2/10 add "are you shour" message when deleting company or customer
+//TODO: 6/10 add titles on any page of the app like: "your coupons: ..."
+//TODO: 3/10 edit component profile

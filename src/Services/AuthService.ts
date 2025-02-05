@@ -1,6 +1,4 @@
 import axios from "axios";
-import { authStore, logout } from "../Redux/AuthStore";
-import { useNavigate } from "react-router-dom";
 
 class AuthService {
 
