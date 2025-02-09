@@ -26,15 +26,13 @@ export function Menu(): JSX.Element {
         <div>
             {isConnected && (<> {/* we added this sign: "<> </>" because JSX must return a single element*/}
                 <div className="Menu">
-                    {clientType === "Customer" && (<NavLink className={"nuv_link"} to={"/coupons_list"}>Home</NavLink>)}
-                    {clientType === "Administrator" && (<NavLink className={"nuv_link"} to={"/clients"}>Home</NavLink>)}
-                    {clientType === "Customer" && (<NavLink className={"nuv_link"} to={"/coupons_list"}>Cart</NavLink>)}
-                    {clientType === "Customer" || clientType === "Company" ? <NavLink className={"nuv_link"} to={"/get_all_coupons"}>My coupons</NavLink>: ''}
-                    <NavLink className={"nuv_link"} to={"/user_profile"}>Profile</NavLink>
+                    {clientType === "Customer" && (<NavLink to={"/coupons_list"} className={({ isActive }) => isActive ? "active" : "nuv_link"}>Home</NavLink>)} {/* ({ isActive }) - is a default function in NavLink, is condition if this link leads to the URL is equals to the current URL the client use, is true else is false, and so we change the className to change colors*/}
+                    {clientType === "Administrator" && (<NavLink to={"/clients"} className={({ isActive }) => isActive ? "active" : "nuv_link"}>Home</NavLink>)}
+                    {/* {clientType === "Customer" && (<NavLink to={"/coupons_list"} className={({ isActive }) => isActive ? "active" : "nuv_link"}>Cart</NavLink>)} */}
+                    {clientType === "Customer" || clientType === "Company" ? <NavLink to={"/get_all_coupons"} className={({ isActive }) => isActive ? "active" : "nuv_link"}>My coupons</NavLink>: ''}
+                    <NavLink to={"/user_profile"} className={({ isActive }) => isActive ? "active" : "nuv_link"}>Profile</NavLink>
                 </div>
             </>)}
         </div>
     );
 }
-
-//TODO: change the useEffect to authStore.subscribe

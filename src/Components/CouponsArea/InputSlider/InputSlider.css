@@ -1,3 +1,17 @@
-.InputSlider {
-	
+
+.svgImage{
+    max-width: 2vw;
+    max-height: 2vw;
+}
+
+.sliderBox{
+    margin-top: 1vw;
+    padding: 1vw;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    background-color: rgb(79, 21, 21);
+    color: rgb(255, 186, 186);
+    border-radius: 8px;
+    border: 3px solid grey;
 }

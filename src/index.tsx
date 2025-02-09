@@ -29,8 +29,6 @@ root.render(
 //TODO: 2/10 add a button of <previes page> to go back from where you came , and not use the default button of chrome. 
 //TODO: 6/10 on hover on CompanyCard/CustomerCard it will show decription what will happend if you will click
 //TODO: 1/10 theme light dark mode
-//TODO: 1/10 allow customer change password and name
-//TODO: 2/10 if customer didnt purchase coupons the error message is wrong
-//TODO: 2/10 add "are you shour" message when deleting company or customer
-//TODO: 6/10 add titles on any page of the app like: "your coupons: ..."
-//TODO: 3/10 edit component profile
+//TODO: 1/10 allow customer change password and name 
+// see all comments inside all classes
+// 1/10 disallow to purchase coupon if his out of stock, add more filters

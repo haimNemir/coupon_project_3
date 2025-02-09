@@ -1,23 +1,41 @@
 .Login {
-    width: fit-content;
-	margin: auto;
-    margin-top: 10vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.tipBody{
-    border: 1px solid black;
-    border-radius: 12px;
-    padding: 5%;
-    width: 25vw;
-    margin-top: 5vw;
-    background-color: rgb(245, 206, 158);
+   
 }
 
 .tip{
     display: inline-block;
-    font-size: medium;
+    font-size: large;
     font-weight: 700;
+}
+
+.tips{
+    margin-left: 5%;
+}
+
+.tipsTable{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.tipBody{
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: rgb(245, 206, 158);
+    margin: 0 2% 0 2%;
+    width: 30vw;
+    padding: 2%;
+}
+
+.loginArea{
+    width: fit-content;
+	margin: auto;
+    margin-top: 10vw;
+    margin-bottom: 5%;
+}
+
+span{
+    cursor: pointer;
 }

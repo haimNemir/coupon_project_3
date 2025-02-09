@@ -1,7 +1,7 @@
 .Menu {
 	height: 5vw;
     min-height: 30px;
-    background-color: rgb(37, 24, 13);
+    background-color: rgb(79, 21, 21);
     align-items: center;
     font-size: larger;
     justify-content: space-evenly;
@@ -9,6 +9,13 @@
 }
 
 .nuv_link{
-    color: brown;
     text-decoration: none; 
+    color: rgb(255, 186, 186);
+
+}
+
+.active{ /* for selected link in menu*/
+    text-decoration: none; 
+    color: rgb(218, 42, 98);
+    
 }

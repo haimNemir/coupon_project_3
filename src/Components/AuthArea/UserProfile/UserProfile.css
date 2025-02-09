@@ -14,10 +14,16 @@
     background-color: rgb(79, 21, 21);
     color: rgb(255, 186, 186);
     font-size: medium;
+    margin: 2%;
 }
 
 p{
     font-weight: bold;
     font-size: larger;
     font-family: robo;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
 }

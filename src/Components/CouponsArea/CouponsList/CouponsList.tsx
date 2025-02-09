@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext, useContext, useRef } from "react";
 import "./CouponsList.css";
 import { Coupon } from "../../../Models/Coupon";
 import customerService from "../../../Services/CustomerService";
@@ -9,7 +9,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form";
 import { Category } from "../../../Models/Category";
 import moment from "moment";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Company } from "../../../Models/Company";
+import { render } from "@testing-library/react";
 
 
 
@@ -19,6 +21,7 @@ interface CouponsListProps {
 }
 
 export function CouponsList(props: CouponsListProps): JSX.Element {
+
     const [allCoupons, setAllCoupons] = useState<Coupon[]>(props.list);
     const [error, setError] = useState<string>("");
     const [addingMode, setAddingMode] = useState<boolean>(false)
@@ -45,32 +48,34 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
         }
     }, [props.list]) // [props.list]-   if the value "props.list" will change "UseEffect" will do another render.
 
-
     function handleClick() {
         setAddingMode(!addingMode)
+        resetPopup()
     }
 
-    const formattedDateToday = moment().format("YYYY-MM-DD-HH-mm") //gets Date "today" from moments.js libreary with format of ("YYYY-MM-DD-HH-mm")
-    const formattedDateTomorrow = moment().add(1, "days").format("YYYY-MM-DD-HH-mm")
-    
+
+    const formattedDateToday: string = moment().format("YYYY-MM-DDTHH:mm") //gets Date "today" from moments.js libreary with format of ("YYYY-MM-DD-HH-mm")
+    const formattedDateTomorrow = moment().add(1, "days").format("YYYY-MM-DDTHH:mm")
     const { register, handleSubmit, reset, setValue } = useForm<Coupon>({
         mode: "onSubmit",
         //defined a default values for the form:
-        defaultValues: { id: 0, startDate: new Date(formattedDateToday), endDate: new Date(formattedDateTomorrow) }
+        defaultValues: {  
+            id: 0, startDate: new Date(formattedDateToday),
+            endDate: new Date(formattedDateTomorrow)
+        }
     });
-    let currentCompany = props.list.find(company => company.id > 0)?.company; 
-    useEffect(() => { // there is a delay in the first render of the page and default value of "company" in the useForm can be null so ve ensureing a valid value on "company value"
-        setValue("company", currentCompany!)
-    }, [props.list])
-    const [defaultEndDate, setDefaultEndDate] = useState<string>(formattedDateTomorrow);// defined the min end date the client can enter based on the start date the client entered, initialized to tomorrow from present.
-    function enterStartDate(event: React.ChangeEvent<HTMLInputElement>) {
-        const enteredStartDate = new Date(event.target.value)
-        // setValue("startDate", enteredStartDate) // save the value the client enter to the form, we use new Date() to convert the "value: string" to "value: Date"
-        const minValueEndDate = moment(enteredStartDate).add(1, "days").format("YYYY-MM-DD-HH-mm")
-        setDefaultEndDate(minValueEndDate) // adding one day to the date the client entered and use it to prevent from user enter end date erlier then start date.// it will handle it in case is the last day in the month to change to month too.
-    } 
+    const [minEndDate, setMinEndDate] = useState<string>(formattedDateTomorrow)// defined the min end date the client can enter based on the start date the client entered, initialized to tomorrow from present.
+    function enterStartDate(event: React.ChangeEvent<HTMLInputElement>) { // will run only when client will enter full date, it will take the input and enter in "enteredStartDate"
+        let enteredStartDate = new Date(event.target.value)
+        setValue("startDate", enteredStartDate) // save the value the client enter to the form, we use new Date() to convert the "value: string" to "value: Date"
+        setMinEndDate(moment(enteredStartDate).add(1, "days").format("YYYY-MM-DDTHH:mm")) // adding one day to the date the client entered and use it to prevent from user enter end date erlier then start date.// it will handle it in case is the last day in the month to change to month too.
+    }
 
-    
+
+    useEffect(() => {
+        setAllCoupons(props.list)
+    }, [props.list]);
+
     //gets list of string values from enum "Category" as: "value- FOOD, label- Food" for each one of them 
     const listOfCategories = Object.keys(Category).map((key) => ({  // do "map" for the list and for each of a value we create two parameters:
         value: key, // save the value as "FOOD"
@@ -78,50 +83,79 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
     }))
     function handleAddingCoupon(form: Coupon) {
         companyService.addCoupon(form)
-            .then(result => { 
+            .then(result => {
                 alert("Coupon " + result.id + " " + result.title + " has created successfully!")
                 allCoupons.push(result)
                 navigate("/get_all_coupons")
                 setAddingMode(!addingMode)
+                reset()
             })
             .catch(error => alert(error.response.data))
     }
+
+    const [showStartDate, setShowStartDate] = useState<boolean>(false)
+    const [showEndDate, setShowEndDate] = useState<boolean>(false)
+
+    function resetPopup() {
+        setShowStartDate(false)
+        setShowEndDate(false)
+    }
+
+    useEffect(() => { // getting the current company to set default creating company as current
+        companyService.getCompanyDetails()
+            .then(result => setValue("company", result))
+            .catch(error => alert(error))
+    }, [])
 
     return (
         <div >
             {error ? <p>{error}</p> :
                 <div className="CouponsList">
                     {clientType == "Company" && !addingMode &&
-                        <button onClick={handleClick} className="addCoupon"><AddIcon /></button>
+                        <button onClick={handleClick} className="addCoupon"><h1>Add coupon</h1><AddIcon sx={{ fontSize: 120 }} /></button>
                     }
                     {clientType == "Company" && addingMode &&
+
                         <form className="form" onSubmit={handleSubmit(handleAddingCoupon)}>
-                            <input className="gridA" type="text" placeholder="Title" required {...register("title")} /><br />
-                            <select className="gridB" defaultValue={"FOOD"} required {...register("category")}>
+                            <h2 className="gridTitle">Create new coupon</h2>
+                            <input className="T" type="text" placeholder="Title" required {...register("title")} /><br />
+                            <input className="D" type="text" placeholder="Description" required {...register("description")} /><br />
+                            <input className="A" type="number" placeholder="Amount in stock" min={1} max={999999} required {...register("amount")} /><br />
+                            <input className="P" type="number" placeholder="Price" min={1} max={999999} required {...register("price")} /><br />
+                            <select className="C select" defaultValue={""} required {...register("category")}>
+                                <option disabled value="">Category</option>
                                 {listOfCategories.map((category) => (
                                     <option key={category.value} value={category.value}>
                                         {category.label}
-                                    </option> 
+                                    </option>
                                 ))}
                             </select><br />
-                            <input className="gridC" type="number" placeholder="Price" min={0} max={999999} required {...register("price")} /><br />
-                            <input className="gridD" type="text" placeholder="Description" required {...register("description")} /><br />
-                            <input className="gridE" type="datetime-local" min={formattedDateToday.toString()} required {...register("startDate")} onChange={enterStartDate} /><br /> {/*here you dont need to enter {...register("startDate")} because onChange handle it. */}
-                            <input className="gridF" type="datetime-local"  min={defaultEndDate} required {...register("endDate")} /> <br />
-                            <input className="gridG" type="text" placeholder="Image" required {...register("image")} /><br />
-                            <button className="gridH" type="submit">Save</button>
-                            <button className="gridI" type="button" onClick={() => reset()}>Reset</button>
-                            <button className="gridJ" type="button" onClick={handleClick}>Close</button>
+                            <input className="I" type="text" placeholder="Image" required {...register("image")} /><br />
+                            {/*here line below you dont need to enter {...register("startDate")} because onChange handle it. */}
+                            {showStartDate ? <input className="SD" type="datetime-local" min={formattedDateToday} required onChange={enterStartDate} /> :
+                                <button type="button" onClick={() => setShowStartDate(!showStartDate)} className="SD helpTitle">Enter start date</button>
+                            }
+                            {showEndDate ? <input className="ED" type="datetime-local" min={minEndDate ?? formattedDateTomorrow} required {...register("endDate")} /> :
+                                <button type="button" onClick={() => setShowEndDate(!showEndDate)} className="ED helpTitle">Enter end date</button>
+                            }
+                            <button className="S" type="submit">Save</button>
+                            <button className="R" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
+                            <button className="CL" type="button" onClick={handleClick}>Close</button>
                         </form>
                     }
-                    {allCoupons.length > 0 ? allCoupons?.map(coupon =>
-                        <CouponCard key={coupon.id} coupon={coupon}/>) :
-                        <h2>You haven't created any coupons from this categories yet, Please create one first.</h2>
+                    {
+                        allCoupons.length > 0 ?
+                            allCoupons?.map(coupon => <CouponCard key={coupon.id} coupon={coupon} />) : ""
+                    }
+                    {
+                        allCoupons.length === 0 && clientType == "Company" &&
+                        <h2 className="errorMessage">You haven't created any coupons from this categories yet, Please create one first</h2>}
+                    {
+                        allCoupons.length === 0 && clientType == "Customer" &&
+                        <h2 className="errorMessage">You haven't purchased any coupons from this category yet, Please purchase one first</h2>
                     }
                 </div>}
         </div>
     );
 }
 
-
-// TODO: when user enter to "my coupons" and instantly press on "sort", he will show him all the coupons, or not allow him to press on sort if he didnt define eny filters.

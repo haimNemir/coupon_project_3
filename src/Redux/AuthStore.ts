@@ -14,7 +14,7 @@ export interface JwtToken{
 const tokenFromCache = (() => { 
     try {
         const token = localStorage.my_token;
-        if (!token || typeof token !== "string") {
+        if (!token || typeof token !== "string"){
             return null;
         }
         return jwtDecode<JwtToken>(token);

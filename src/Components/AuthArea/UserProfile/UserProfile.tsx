@@ -31,6 +31,10 @@ export function UserProfile(): JSX.Element {
         }
     }, [])
 
+    function handleLogin() {
+        navigate("/")
+    }
+
     function handleLogout() {
         const email = authStore.getState().email;
         authService.logout(email, roleType) // to log out from the server.
@@ -53,9 +57,9 @@ export function UserProfile(): JSX.Element {
                 }
                 {role === "Customer" &&
                     <div>
-                        <p>Id: </p>{customerDetails?.id}
-                        <p>Full name: </p>{customerDetails?.firstName + " " + customerDetails?.lastName}
-                        <p>Email: </p>{customerDetails?.email}
+                        <p>Id: {customerDetails?.id}</p>
+                        <p>Full name: {customerDetails?.firstName + " " + customerDetails?.lastName}</p>
+                        <p>Email: {customerDetails?.email}</p>
                     </div>
                 }
                 {role === "Administrator" &&
@@ -64,7 +68,11 @@ export function UserProfile(): JSX.Element {
                     </div>
                 }
             </pre>
-            <button className="button" onClick={handleLogout}>Logout</button>
+            <div className="buttons">
+                <button className="button" onClick={handleLogin}>Login</button>
+                <button className="button" onClick={handleLogout}>Logout</button>
+            </div>
+
         </div>
     );
 }

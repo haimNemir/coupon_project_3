@@ -14,7 +14,6 @@ export function CustomerCard(props: CustomerProps): JSX.Element {
                 <p>First name: {props.customer.firstName}</p>
                 <p>Last name: {props.customer.lastName}</p>
                 <p>Email: {props.customer.email}</p>
-                {/* <p>Company email: {props.customer.coupons}</p> */}
             </NavLink>}
 
         </div>

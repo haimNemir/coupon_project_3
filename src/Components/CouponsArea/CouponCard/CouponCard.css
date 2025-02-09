@@ -1,7 +1,12 @@
 .CouponCard {
 	border: 1px solid black;
-    margin: 3vh;
     padding: 16px;
     border-radius: 8px;    
     
+    font-size: small;
+}
+
+.CouponCard{
+    cursor: pointer;
+
 }

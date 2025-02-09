@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import "./MyCoupons.css";
 import { Coupon } from "../../../Models/Coupon";
 import { CouponsList } from "../CouponsList/CouponsList";
@@ -8,18 +8,22 @@ import InputSlider from "../InputSlider/InputSlider";
 import customerService from "../../../Services/CustomerService";
 import { authStore } from "../../../Redux/AuthStore";
 import companyService from "../../../Services/CompanyService";
+import { error } from "console";
+import { Company } from "../../../Models/Company";
 
 //to fix: let the client change the slider and push on sort                                      
 interface SortProps {
     allCoupons: boolean;
     byCategory: Category;
     byPrice: number;
+
 }
 
 export const Context = createContext<boolean | null>(null) // send data to his childrens (here we send to <CouponDetails/>) like we send props, but here we didnt need to pass the data throw all the components in the middle. we do it outside of <MyCoupons/> component to prevent from create useContext any time the component rerender. 
 
 
 export function MyCoupons(): JSX.Element {
+
     // for getting the all selections and return coupons by that
     const { register, handleSubmit, getValues, setValue } = useForm<SortProps>({ mode: "onSubmit" });
 
@@ -52,6 +56,8 @@ export function MyCoupons(): JSX.Element {
             .catch(error => alert(error))
     }
 
+
+
     // gets the expensive coupon from customer coupons to define max value in "slider":
     // coupons.reduce() - gets two coupons and compare them for the most expensive coupon, and return to "highest" the expensive.
     const [mostExpensiveCoupon, setMostExpensiveCoupon] = useState<number>(1000);
@@ -60,8 +66,7 @@ export function MyCoupons(): JSX.Element {
             return current.price > highest.price ? current : highest
         }, list[0])// list[0]- first initialized to the coupons will be first place in the list.
         if (list.length > 0) {
-            setMostExpensiveCoupon(expensiveCoupon.price + 1) // +1 - because the filter not including the last number himself
-
+            setMostExpensiveCoupon(Math.ceil(expensiveCoupon.price)) // Math.ceil takes a decimal number and returns the smallest integer that is greater than or equal to the given number.
         }
     }
 
@@ -70,9 +75,9 @@ export function MyCoupons(): JSX.Element {
     const [sliderValue, setSliderValue] = useState<number>(1000);
 
     // allow user to open the slider popup or to close him:
-    const [showPricing, setshowPricing] = useState<boolean>(false);
+    const [showPricing, setShowPricing] = useState<boolean>(false);
     function togglePricing() {
-        setshowPricing(!showPricing)
+        setShowPricing(!showPricing)
     }
 
     // Put the "byPrice" from useForm into the "sliderValue".
@@ -108,6 +113,7 @@ export function MyCoupons(): JSX.Element {
                 .then(result => { setCoupons(result) })
                 .catch(error => alert(error.response.data))
         }
+        setShowPricing(false)
     }
 
     function filterPrice(form: SortProps, list: Coupon[]) {
@@ -121,15 +127,14 @@ export function MyCoupons(): JSX.Element {
         label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase() // save the value as "Food". key.slice(1) - return new string start from the index[1] (the second letter) until his end.
     }))
 
-    const [showPurchaseButton] = useState<boolean>(false) 
+    const [showPurchaseButton] = useState<boolean>(false)
 
 
     return (
         <div className="MyCoupons">
             <div className="sort_bar">
                 <form onSubmit={handleSubmit(getSorted)}>
-                    <select defaultValue={""} {...register("byCategory")}>
-                        <option disabled value={""}>Select category</option>
+                    <select className="sortButton" defaultValue={"All"} {...register("byCategory")}>
                         <option value={"All"}>All Categories</option>
                         {listOfCategories.map((category) => (
                             <option key={category.value} value={category.value}>
@@ -137,16 +142,17 @@ export function MyCoupons(): JSX.Element {
                             </option>
                         ))}
                     </select>
-                    <button type="button" onClick={togglePricing}>Price</button> {/*we define the button to type "button" to prevent from him to be default value: "submit"*/}
+                    <button className="sortButton" type="button" onClick={togglePricing}>Price</button> {/*we define the button to type "button" to prevent from him to be default value: "submit"*/}
+                    <button className="sortButton" type="submit">Sort</button>
+
                     {showPricing ?
                         <div>
                             <InputSlider initialMaxValue={mostExpensiveCoupon} savedValue={sliderValue} setSliderValue={setSliderValue} />
                         </div> : ""}
-                    <button type="submit">Sort</button>
                 </form>
             </div>
             <div className="couponList">
-                <Context.Provider value={showPurchaseButton}>
+                <Context.Provider value={showPurchaseButton}> {/*send data to his childrens inside the Provider*/}
                     {<CouponsList list={coupons} firstTimeRequested={false} />}
                 </Context.Provider>
             </div>
@@ -155,5 +161,4 @@ export function MyCoupons(): JSX.Element {
 }
 
 
-// add condition to see the slider only if the user is logged in
 // add the eresult of the sort to a element and it will be saved even the client will go to component home and return

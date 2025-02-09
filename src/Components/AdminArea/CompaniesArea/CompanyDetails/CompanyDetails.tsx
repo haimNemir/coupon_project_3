@@ -19,27 +19,30 @@ export function CompanyDetails(): JSX.Element {
             .catch(error => alert(error.response.data))
     }, [])
 
-    function deleteCompany(){
-        adminService.deleteCompany(companyId)
-        .then(result => {
-            alert("You have been successfully deleted company " + companyId)
-            navigate("/clients")
-        })
-        .catch(error => alert(error.response.data)) 
+    function deleteCompany() {
+        const confim = window.confirm(`Are you sure you want to delete company ${companyId}?`)
+        if (confim) {
+            adminService.deleteCompany(companyId)
+                .then(result => {
+                    alert("You have been successfully deleted company " + companyId)
+                    navigate("/clients")
+                })
+                .catch(error => alert(error.response.data))
+        }
     }
 
     return (
         <div className="CompanyDetails">
             <div className="details">
-            {editMode ? <EditCompany company={company!}/> :
-                <div>
-                    <p>Company ID: {company?.id}</p>
-                    <p>Company name: {company?.name}</p>
-                    <p>Company email: {company?.email}</p>
-                    <button onClick={ () => setEditMode(!editMode)}>Edit Company</button>
-                    <button onClick={deleteCompany}>Delete company</button>
-                </div>
-            }
+                {editMode ? <EditCompany company={company!} /> :
+                    <div>
+                        <p>Company ID: {company?.id}</p>
+                        <p>Company name: {company?.name}</p>
+                        <p>Company email: {company?.email}</p>
+                        <button onClick={() => setEditMode(!editMode)}>Edit Company</button>
+                        <button onClick={deleteCompany}>Delete company</button>
+                    </div>
+                }
             </div>
         </div>
     );

@@ -1,17 +1,35 @@
-.MyCoupons {
-	
-}
 
 .sort_bar{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: rgb(92, 55, 26);
     color: rgb(37, 24, 13);
     font-size: larger;
     font-weight: bolder;
+    padding: 1vw;
+    width: fit-content;
+    margin: auto;
+
 }
 
-.couponList{
+.sortButton{
+    margin-right: 1vw;
+    margin-left: 1vw;
+    background-color: rgb(79, 21, 21);
+    color: rgb(255, 186, 186);
+    width: 10vw;
+    height: 3.5vw;
+    border-radius: 8px;
+    text-align: center;
     
 }
+
+.MuiInputBase-root{
+    width: 60px !important;
+    color: pink !important;
+}
+
+.css-13vpke-MuiSlider-root{
+    color: pink !important;
+}
+

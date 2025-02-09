@@ -9,8 +9,8 @@
 
 .selectButton{
     padding: 10px;
-    background-color: rgb(88, 49, 34);
-    color: rgb(228, 190, 190);
+    background-color: rgb(79, 21, 21);
+    color: rgb(255, 186, 186);
     margin-top: 1vw;
     margin-left: 42.5vw;
     display: inline-block;
@@ -19,4 +19,10 @@
     text-align: center;
     border-radius: 8px;
     font-size: medium;
+    
 }
+
+.selectButton:hover{
+    cursor: pointer;
+}
+

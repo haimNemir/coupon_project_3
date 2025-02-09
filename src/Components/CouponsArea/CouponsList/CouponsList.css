@@ -1,16 +1,16 @@
 .CouponsList {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* רווח בין הכרטיסיות */
+    column-gap: 5%;
+    row-gap: 5vw;
     padding: 20px;
-    width: 96.5%;
     background-color: bisque;
 
 }
 
 @media (max-width: 768px) {
     .CouponsList {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -20,46 +20,128 @@
     }
 }
 
-.addCoupon{
+.addCoupon {
     border: 1px solid black;
-    margin: 3vh;
     padding: 16px;
-    border-radius: 8px;    
+    border-radius: 8px;
 }
 
-.css-1umw9bq-MuiSvgIcon-root{
+.css-1umw9bq-MuiSvgIcon-root {
     width: 20vw !important;
     height: 20vw !important;
 }
 
-.form{
+.form {
     border: 1px solid black;
     border-radius: 8px;
     display: grid;
     grid-template-areas:
-    "A A"
-    "B C"
-    "D D"
-    "E F"
-    "G G"
-    "H H"
-    "I I"
-    "J J";
+        "gridTitle gridTitle"
+        "T T"
+        "D D"
+        "A P"
+        "C I"
+        "SD SD"
+        "ED ED"
+        "S S"
+        "R CL";
     grid-template-columns: 1fr 1fr;
-    margin: 3vh;
-    padding: 4% ;
-    gap: 1%;
+    row-gap: 1%;
+    width: 100%;
+    padding-top: 10%;
+    min-height: 35vw;
 }
 
-.gridA{grid-area: A;}
-.gridB{grid-area: B;}
-.gridC{grid-area: C;}
-.gridD{grid-area: D;}
-.gridE{grid-area: E;}
-.gridF{grid-area: F;}
-.gridG{grid-area: G;}
-.gridH{
-    grid-area: H;
+.gridTitle {
+    width: 100%;
+    margin: auto;
+    text-align: center;
 }
-.gridI{grid-area: I;}
-.gridJ{grid-area: J;}
+
+.form>input,
+.form>select,
+.form>button {
+    width: 80%;
+    justify-self: center;
+}
+
+.A, .C, .R {
+    margin-left: 15%;
+}
+
+.P, .I, .CL {
+    margin-right: 15%;
+}
+
+.A,
+.P,
+.I {
+    width: 74.5% !important;
+}
+
+.T {
+    grid-area: T;
+}
+
+.D {
+    grid-area: D;
+}
+
+.A {
+    grid-area: A;
+}
+
+.P {
+    grid-area: P;
+}
+
+.C {
+    grid-area: C;
+}
+
+.I {
+    grid-area: I;
+}
+
+.SD {
+    grid-area: SD;
+}
+
+.ED {
+    grid-area: ED;
+}
+
+.S {
+    grid-area: S;
+    width: 83% !important;
+}
+
+.R {
+    grid-area: R;
+}
+
+.CL {
+    grid-area: CL;
+}
+
+.gridTitle{
+    grid-area: gridTitle;
+}
+
+
+.errorMessage {
+    width: 30vw;
+    margin: auto;
+    max-width: 30vw !important;
+    text-align: center;
+    color: rgb(79, 21, 21);
+
+}
+
+.helpTitle{
+    width: 83% !important;
+}
+
+.select{
+    text-align: center;
+}

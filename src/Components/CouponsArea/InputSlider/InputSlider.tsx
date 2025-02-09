@@ -45,39 +45,41 @@ export default function InputSlider(parentData: DataFormParent) {
     };
 
     return (
-        <Box sx={{ width: 250 }}>
-            <Typography id="input-slider" gutterBottom>
-                Show the coupons up to the price:
-            </Typography>
-            <Grid container spacing={2} sx={{ alignItems: 'center' }}>
-                <Grid item>
-                    <PaidOutlined />
+        <div className="sliderBox">
+            <Box sx={{ width: 250 }}>
+                <Typography id="input-slider" gutterBottom>
+                    Show the coupons up to the price:
+                </Typography>
+                <Grid container spacing={2} sx={{ alignItems: 'center' }}>
+                    <Grid item>
+                        <PaidOutlined className="svgImage" />
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            value={typeof value === 'number' ? value : 0}
+                            onChange={handleSliderChange}
+                            aria-labelledby="input-slider"
+                            max={parentData.initialMaxValue}
+                            min={0}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Input
+                            value={value}
+                            size="small"
+                            onChange={handleInputChange}
+                            onBlur={handleBlur}
+                            inputProps={{
+                                step: 1,
+                                min: 0,
+                                max: parentData.initialMaxValue,
+                                type: 'number',
+                                'aria-labelledby': 'input-slider',
+                            }}
+                        />
+                    </Grid>
                 </Grid>
-                <Grid item xs>
-                    <Slider
-                        value={typeof value === 'number' ? value : 0}
-                        onChange={handleSliderChange}
-                        aria-labelledby="input-slider"
-                        max={parentData.initialMaxValue}
-                        min={0}
-                    />
-                </Grid>
-                <Grid item>
-                    <Input
-                        value={value}
-                        size="small"
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                        inputProps={{
-                            step: 1,
-                            min: 0,
-                            max: parentData.initialMaxValue,
-                            type: 'number',
-                            'aria-labelledby': 'input-slider',
-                        }}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
+            </Box>
+        </div>
     );
 }
