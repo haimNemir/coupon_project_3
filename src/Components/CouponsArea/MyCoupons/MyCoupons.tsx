@@ -134,7 +134,7 @@ export function MyCoupons(): JSX.Element {
         <div className="MyCoupons">
             <div className="sort_bar">
                 <form onSubmit={handleSubmit(getSorted)}>
-                    <select className="sortButton" defaultValue={"All"} {...register("byCategory")}>
+                    <select className="my_coupons__sort_button customized_button" defaultValue={"All"} {...register("byCategory")}>
                         <option value={"All"}>All Categories</option>
                         {listOfCategories.map((category) => (
                             <option key={category.value} value={category.value}>
@@ -142,8 +142,8 @@ export function MyCoupons(): JSX.Element {
                             </option>
                         ))}
                     </select>
-                    <button className="sortButton" type="button" onClick={togglePricing}>Price</button> {/*we define the button to type "button" to prevent from him to be default value: "submit"*/}
-                    <button className="sortButton" type="submit">Sort</button>
+                    <button className="my_coupons__sort_button customized_button" type="button" onClick={togglePricing}>Price</button> {/*we define the button to type "button" to prevent from him to be default value: "submit"*/}
+                    <button className="my_coupons__sort_button customized_button" type="submit">Filter</button>
 
                     {showPricing ?
                         <div>

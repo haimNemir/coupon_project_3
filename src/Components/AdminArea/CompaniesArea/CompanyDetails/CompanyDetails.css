@@ -1,13 +1,37 @@
-.CompanyDetails{
+.CompanyDetails {
     display: flex;
     justify-content: center;
-    margin-top: 10vw;    
+    margin-top: 7vw;
 }
 
 .details {
-	border: 1px solid black;
     border-radius: 8px;
-    display: inline-block;
-    padding: 2%;
-    
+}
+
+ 
+.company_details__buttons {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    margin: 7px;
+    background-color: bisque;
+
+}
+
+.company_details__details {
+    background-color: rgb(242, 206, 163);
+    padding: 3vw;
+    border-radius: 20px;
+}
+
+.company_details__title {
+    color: rgb(114, 17, 17);
+    font-size: 28px;
+    font-weight: 700;
+    margin-left: 16.5% !important;
+    margin-top: 0;
+}
+
+.company_details__span {
+    color: rgb(114, 17, 17);
 }

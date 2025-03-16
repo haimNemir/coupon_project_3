@@ -1,8 +1,67 @@
 .AddCustomer {
-        border: 1px solid black;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+        background-color: rgb(242, 206, 163);
+        padding: 8% 10% 4% 10%;
+        border-radius: 20px;
+}
+
+.add_customer__buttons {
+        font-size: 18px;
+        padding: 10px;
+        font-weight: 700;
+        margin: 4%;
+        background-color: bisque;
+}
+
+.add_customer__title {
+        color: rgb(114, 17, 17);
+        font-size: 24px;
+        font-weight: 700;
+        margin-left: 14% ;
+        margin-top: -10px;
+        margin-bottom: 5px;
+}
+
+.add_customer__input {
+        font-size: 14px !important;
+        padding: 5px 27px 5px 5px;
+        margin: 3px;
+        background-color: bisque;
+}
+
+.add_customer__div {
+        display: grid;
+        grid-template-areas:
+                "A A A"
+                "B B B"
+                "C C C"
+                "D D D"
+                "E F G";
+}
+
+.Grid_A {
+        grid-area: A;
+}
+
+.Grid_B {
+        grid-area: B;
+}
+
+.Grid_C {
+        grid-area: C;
+}
+
+.Grid_D {
+        grid-area: D;
+}
+
+.Grid_E {
+        grid-area: E;
+}
+
+.Grid_F {
+        grid-area: F;
+}
+
+.Grid_G {
+        grid-area: G;
 }

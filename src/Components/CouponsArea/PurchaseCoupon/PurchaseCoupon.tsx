@@ -25,7 +25,7 @@ export function PurchaseCoupon(props: CouponProps): JSX.Element {
     
     return (
         <div className="PurchaseCoupon">
-            <button onClick={confirmParchase}>Purchase coupon</button>
+            <button onClick={confirmParchase} className="customized_card purchase_coupon__button">Purchase coupon</button>
         </div>
     );
 }

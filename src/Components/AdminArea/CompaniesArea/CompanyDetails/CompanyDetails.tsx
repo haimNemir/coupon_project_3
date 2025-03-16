@@ -31,16 +31,17 @@ export function CompanyDetails(): JSX.Element {
         }
     }
 
-    return (
+    return ( 
         <div className="CompanyDetails">
             <div className="details">
                 {editMode ? <EditCompany company={company!} /> :
-                    <div>
-                        <p>Company ID: {company?.id}</p>
-                        <p>Company name: {company?.name}</p>
-                        <p>Company email: {company?.email}</p>
-                        <button onClick={() => setEditMode(!editMode)}>Edit Company</button>
-                        <button onClick={deleteCompany}>Delete company</button>
+                    <div className="company_details__details">
+                        <p className="company_details__title">Company details</p>
+                        <p>Serial number: <span className="company_details__span"> {company?.id}</span></p>
+                        <p>Company name: <span className="company_details__span">{company?.name}</span></p>
+                        <p>Email: <span className="company_details__span">{company?.email}</span></p>
+                        <button className="customized_button company_details__buttons" onClick={() => setEditMode(!editMode)}>Edit Company</button>
+                        <button className="customized_button company_details__buttons" onClick={deleteCompany}>Delete company</button>
                     </div>
                 }
             </div>

@@ -1,9 +1,33 @@
 .AddCompany {
-    border: 1px solid black;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    background-color: rgb(242, 206, 163);
+    border: none;
+}
+
+.Add_company__buttons{
+    font-size: 14px;
+    padding: 10px;
+    font-weight: 700;
+    margin: 7px;
+  background-color: bisque;
+
+}
+ 
+.add_company__input{
+    font-size: 14px !important;
+    padding: 5px 27px 5px 5px;
+    margin: 3px;
+  background-color: bisque;
+
+}
+
+.add_company__title{
+  color: rgb(114, 17, 17);
+  font-size: 24px;
+  margin: 10px !important;
 }
 

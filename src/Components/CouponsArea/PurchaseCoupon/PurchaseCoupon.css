@@ -1,2 +1,11 @@
 .PurchaseCoupon {
+   
+}
+ 
+.purchase_coupon__button{
+    font-size: 20px;
+    font-weight: 700;
+    background-color: bisque;
+    color: rgb(114, 17, 17);
+    border-radius: 20px;
 }

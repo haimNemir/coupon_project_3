@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont,'Roboto', 'Segoe UI',  'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -9,20 +9,97 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas,'Roboto', 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Roboto', 'Courier New',
     monospace;
 }
 
-button:hover{
+.customized_button {
+  border: none;
+  transition: background-color 0.3s, box-shadow 0.3s, border-radius 0.3s;
+  background-color: rgb(242, 206, 163);
+  border-radius: 6px;
+  color: rgb(79, 21, 21);
+}
+
+.customized_button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 2px 2px rgb(79, 21, 21);
+  background-color: rgb(79, 21, 21);
+  color: rgb(255, 186, 186) !important;
+}
+
+select:hover {
   cursor: pointer;
 }
 
-select:hover{
-  cursor: pointer;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
 }
 
-p, h1, h2, h3, h4, h5, h6{
-  font-family: -apple-system, BlinkMacSystemFont,'Roboto', 'Segoe UI',  'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif !important;
+.customized_card {
+  background-color: rgb(242, 206, 163);
+  border-radius: 8px;
+  padding: 5%;
+  transition: background-color 0.5s, box-shadow 0.5s, border-radius 0.5s;
+  border: none;
+}
+
+.customized_card:hover {
+  background-color: rgb(79, 21, 21);
+  color: rgb(199, 62, 62) !important;
+
+  box-shadow: 0 0 5px 5px rgb(79, 21, 21);
+  border-radius: 40px;
+}
+
+.customized_card span {
+  padding: 0px 4px 2px 4px;
+  font-weight: 900;
+  color: rgb(114, 17, 17);
+  /* הוספת אנימציה שמגרמת ל-border ולצל לדהות עם הזמן */
+}
+
+.customized_card:hover span {
+  color: rgb(255, 186, 186) !important;
+}
+
+.customized_card:hover>a {
+  color: inherit
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  text-decoration-line: none;
+
+}
+
+select {
+  border: none;
+  background-color: rgb(79, 21, 21);
+  border-radius: 5px;
+  text-align: center;
+}
+
+input{
+  background-color: rgb(242, 206, 163);
+  color: rgb(79, 21, 21) !important;
+  border: rgb(242, 206, 163) solid 1.5px;
+  border-radius: 3px;
+}
+
+input:focus{
+  border: rgb(89, 25, 25) solid 1.5px !important;
+  box-shadow: 0 0 1px 1px rgb(79, 21, 21);
+  outline: none;
+  background-color: rgb(253, 239, 221);
+
 }

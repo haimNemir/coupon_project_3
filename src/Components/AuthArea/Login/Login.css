@@ -1,25 +1,25 @@
-.Login {
-   
+.login__login_title{
+    color: rgb(78, 9, 9);
+    margin-left: 42.5vw;
 }
-
-.tip{
+.tip {
     display: inline-block;
     font-size: large;
     font-weight: 700;
 }
 
-.tips{
+.tips {
     margin-left: 5%;
 }
 
-.tipsTable{
+.tipsTable {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 
 }
 
-.tipBody{
+.tipBody {
     display: inline-block;
     border: 1px solid black;
     border-radius: 12px;
@@ -29,13 +29,78 @@
     padding: 2%;
 }
 
-.loginArea{
-    width: fit-content;
-	margin: auto;
-    margin-top: 10vw;
-    margin-bottom: 5%;
+.loginArea {
+    display: grid;
+    margin-left: 36vw;
+    grid-template-areas: 
+    "A A B"
+    "C C D"
+    "E F none";
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 2%;
+    column-gap: 2%;
+    max-width: 40%;
 }
 
-span{
+.login__span {
     cursor: pointer;
 }
+
+.login__buttons {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    margin: 5px;
+    color: rgb(114, 17, 17);
+
+}
+
+.login__select{
+    padding: 10px;
+    background-color: rgb(242, 206, 163);
+    color: rgb(114, 17, 17);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 5px;
+    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.login__select:hover{
+  cursor: pointer;
+  box-shadow: 0 0 2px 2px rgb(79, 21, 21);
+  background-color: rgb(79, 21, 21);
+  color: rgb(255, 186, 186) !important;
+}
+
+.login__input{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    margin: 5px;
+}
+
+.login__grid_A{
+    grid-area: A;
+}
+
+.login__grid_B{
+    grid-area: B;
+    
+}
+
+.login__grid_C{
+    grid-area: C;
+}
+
+.login__grid_D{
+    grid-area: D;
+}
+
+.login__grid_E{
+    grid-area: E;
+}
+
+.login__grid_F{
+    grid-area: F;
+}
+

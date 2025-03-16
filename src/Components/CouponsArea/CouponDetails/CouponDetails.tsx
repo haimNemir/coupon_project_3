@@ -124,56 +124,56 @@ export function CouponDetails(): JSX.Element {
         <div className="CouponDetails">
             {error ? <p>{error}</p> :
                 editMode ?
-                    <form className="form" onSubmit={handleSubmit(submitUpdateCoupon)}>
-                        <h2 className="gridTitle">Update coupon</h2>
-                        <span className="details">
-                            <p className="para ">Coupon id: </p> <span className="ParaDetails">{coupon?.id}</span> <br />
-                            <p className="para">Company name:</p> <span className="ParaDetails">{coupon?.company.name}</span> <br />
-                        </span>
-                        <input className="T" type="text" placeholder="Title" required {...register("title")} /><br />
-                        <input className="D" type="text" placeholder="Description" required {...register("description")} /><br />
-                        <input className="A" type="number" placeholder="Amount in stock" min={1} max={999999} required {...register("amount")} /><br />
-                        <input className="P" type="number" placeholder="Price" min={1} max={999999} required {...register("price")} /><br />
-                        <select className="C select" defaultValue={""} required {...register("category")}>
+                    <form className="coupon_details__form" onSubmit={handleSubmit(submitUpdateCoupon)}>
+                        <h2 className="coupon_details__title coupon_details__grid_title">Update coupon</h2>
+                        <input className="coupon_details__input_disabled coupon_details__disabled_grid_A" title="Cannot be changed, a permanently fixed serial number." type="text" placeholder= {`Serial number: ${coupon?.id}`} disabled/>
+                        <input className="coupon_details__input_disabled coupon_details__disabled_grid_B" title="Cannot be changed, a permanently fixed company name." type="text" placeholder= {`Company name: ${coupon?.company.name}`} disabled/>
+                        <input className="coupon_details__input coupon_details__input_C" type="text" placeholder="Title" required {...register("title")} />
+                        <input className="coupon_details__input coupon_details__input_D" type="text" placeholder="Description" required {...register("description")} />
+                        <input className="coupon_details__input coupon_details__input_E" type="number" placeholder="Amount in stock" min={1} max={999999} required {...register("amount")} />
+                        <input className="coupon_details__input coupon_details__input_F" type="number" placeholder="Price" min={1} max={999999} required {...register("price")} />
+                        <select className="coupon_details__select coupon_details__select_G" defaultValue={""} required {...register("category")}>
                             <option disabled value="">Category</option>
                             {listOfCategories.map((category) => (
                                 <option key={category.value} value={category.value}>
                                     {category.label}
                                 </option>
                             ))}
-                        </select><br />
-                        <input className="I" type="text" placeholder="Image" required {...register("image")} /><br />
+                        </select>
+                        <input className="coupon_details__input coupon_details__input_H" type="text" placeholder="Image" required {...register("image")} />
                         {/*here line below you dont need to enter {...register("startDate")} because onChange handle it. */}
-                        {showStartDate ? <input className="SD" type="datetime-local" min={formattedDateToday} required onChange={enterStartDate} /> :
-                            <button type="button" onClick={() => setShowStartDate(!showStartDate)} className="SD helpTitle">Enter start date</button>
+                        {showStartDate ? <input className="coupon_details__input coupon_details__input_I" type="datetime-local" min={formattedDateToday} required onChange={enterStartDate} /> :
+                            <button className="coupon_details__button customized_button coupon_details__input_I" type="button" onClick={() => setShowStartDate(!showStartDate)}>Enter start date</button>
                         }
-                        {showEndDate ? <input className="ED" type="datetime-local" min={minEndDate ?? formattedDateTomorrow} required {...register("endDate")} /> :
-                            <button type="button" onClick={() => setShowEndDate(!showEndDate)} className="ED helpTitle">Enter end date</button>
+                        {showEndDate ? <input className="coupon_details__input coupon_details__input_J" type="datetime-local" min={minEndDate ?? formattedDateTomorrow} required {...register("endDate")} /> :
+                            <button className="coupon_details__button customized_button coupon_details__input_J" type="button" onClick={() => setShowEndDate(!showEndDate)} >Enter end date</button>
                         }
-                        <button className="S" type="submit">Save</button>
-                        <button className="R" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
-                        <button className="CL" type="button" onClick={handleClick}>Close</button>
+                        <button className="customized_button coupon_details__button coupon_details__button_K" type="submit">Save</button>
+                        <button className="customized_button coupon_details__button coupon_details__button_L" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
+                        <button className="customized_button coupon_details__button coupon_details__button_M" type="button" onClick={handleClick}>Close</button>
                     </form>
                     :
                     <div className="oldCouponDetails">
-                        <div className="p-details">Coupon id:</div>     <span className="s-details">{coupon?.id}</span><br />
-                        <div className="p-details">Title:</div>         <span className="s-details">{coupon?.title}</span><br />
-                        <div className="p-details">Category:</div>      <span className="s-details">{coupon?.category}</span><br />
-                        <div className="p-details">Company name:</div>  <span className="s-details">{coupon?.company.name}</span><br />
-                        <div className="p-details">Price:</div>         <span className="s-details">{coupon?.price}</span><br />
-                        <div className="p-details">Description:</div>   <span className="s-details">{coupon?.description}</span><br />
-                        <div className="p-details">Start date:</div>    <span className="s-details">{coupon?.startDate.toString()}</span><br />
-                        <div className="p-details">End date:</div>      <span className="s-details">{coupon?.endDate.toString()}</span><br />
-                        <div className="p-details">Left in stock:</div> <span className="s-details">{coupon?.amount}</span><br />
-                        <div className="p-details">Image:</div>         <span className="s-details">{coupon?.image}</span><br />
+                        {clientType === "Company" && <p className="coupon_details__old_title">Update coupon</p>}
+                        {clientType === "Customer" && <p className="coupon_details__old_title">{coupon?.title}</p>}
+                        <div className="old_coupon_p">Serial number:</div>     <span className="old_coupon__span">{coupon?.id}</span><br />
+                        <div className="old_coupon_p">Title:</div>         <span className="old_coupon__span">{coupon?.title}</span><br />
+                        <div className="old_coupon_p">Category:</div>      <span className="old_coupon__span">{coupon?.category.charAt(0)! + coupon?.category.slice(1).toLowerCase()}</span><br />
+                        <div className="old_coupon_p">Company name:</div>  <span className="old_coupon__span">{coupon?.company.name}</span><br />
+                        <div className="old_coupon_p">Price:</div>         <span className="old_coupon__span">{coupon?.price}</span><br />
+                        <div className="old_coupon_p">Description:</div>   <span title={coupon?.description} className="old_coupon__span">{coupon?.description}</span><br />
+                        <div className="old_coupon_p">Start date:</div>    <span className="old_coupon__span">{moment(coupon?.startDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
+                        <div className="old_coupon_p">End date:</div>      <span className="old_coupon__span">{moment(coupon?.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
+                        <div className="old_coupon_p">Left in stock:</div> <span className="old_coupon__span">{coupon?.amount}</span><br />
+                        {/* <div className="old_coupon_p">Image:</div>         <span className="old_coupon__span">{coupon?.image}</span><br /> */}
                         <div className="buttons-area">
-                            {clientType === "Company" && <button className="buttons-edit" onClick={handleClick}>Edit coupon</button>}
-                            {clientType === "Company" && <button className="buttons-edit" onClick={handleDelete}>Delete coupon</button>}
+                            {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleClick}>Edit coupon</button>}
+                            {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleDelete}>Delete coupon</button>}
+                            {clientType === "Customer" && showPurchaseButton.state?.showPurchase !== false && <div className="coupon_details__purchase_button"> <PurchaseCoupon couponId={coupon?.id!} /></div>}
                         </div>
                     </div>
             }
-            {/*  */}
-            {clientType === "Customer" && showPurchaseButton.state?.showPurchase !== false && <PurchaseCoupon couponId={coupon?.id!} />}
+
         </div>
     );
 }

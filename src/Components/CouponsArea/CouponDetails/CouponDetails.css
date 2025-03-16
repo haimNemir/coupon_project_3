@@ -1,28 +1,20 @@
 .CouponDetails {
-	border: 1px solid black;
     border-radius: 8px;
-    width: 30vw;    
     font-size: large;
     font-weight: bold;
     color: black;
     margin: auto;
     margin-top: 5%;
+    border: none !important;
 }
 
-.ParaDetails{
-    font-size: 400 ;
+.coupon_details__span {
+    font-size: 400;
     font-weight: 600;
 
 }
 
-.para{
-    font-size: large;
-    font-weight: 700;
-    display: inline-block;
-    margin: 0;
-}
-
-.details{
+.coupon_details__details {
     grid-area: details;
     border-radius: 0 !important;
     border: 0 !important;
@@ -32,27 +24,6 @@
 }
 
 
-.CouponsList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 5%;
-    row-gap: 5vw;
-    padding: 20px;
-    background-color: bisque;
-
-}
-
-@media (max-width: 768px) {
-    .CouponsList {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .CouponsList {
-        grid-template-columns: 1fr;
-    }
-}
 
 .addCoupon {
     border: 1px solid black;
@@ -60,109 +31,94 @@
     border-radius: 8px;
 }
 
-.css-1umw9bq-MuiSvgIcon-root {
-    width: 20vw !important;
-    height: 20vw !important;
-}
-
-.form {
-    border: 1px solid black;
-    border-radius: 8px;
+.coupon_details__form {
+    background-color: rgb(242, 206, 163);
+    padding: 3vw;
+    padding-top: 0;
+    border-radius: 20px;
     display: grid;
     grid-template-areas:
-        "gridTitle gridTitle"
-        "details details"
-        "T T"
-        "D D"
-        "A P"
-        "C I"
-        "SD SD"
-        "ED ED"
-        "S S"
-        "R CL";
-    grid-template-columns: 1fr 1fr;
-    row-gap: 1%;
-    width: 100%;
-    padding-top: 10%;
-    min-height: 35vw;
-}
-
-.gridTitle {
-    width: 100%;
+        " Title Title Title Title "
+        "A A B B"
+        "C C D D"
+        "H F G E"
+        "I I J J"
+        "L K K M"
+    ;
+    row-gap: 1vw;
+    column-gap: 1vw;
     margin: auto;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 200px)) !important;
+    width: 65.5vw;
+}
+
+
+@media (max-width: 768px) {
+    .coupon_details__form {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            " Title Title Title Title"
+            "A A A A"
+            "B B B B"
+            "C C C C"
+            "D D D D"
+            "E E E E"
+            "F F F F"
+            "G G G G"
+            "H H H H"
+            "I I I I"
+            "J J J J"
+            "K K K K"
+            "L L L L"
+            "M M M M"
+        ;
+        row-gap: 10px !important;
+        padding: 20px;
     text-align: center;
+
+    }
 }
 
-.form>input,
-.form>select,
-.form>button {
-    width: 80%;
-    justify-self: center;
+@media (max-width: 480px) {
+    .coupon_details__form {
+
+        grid-template-areas:
+            " Title Title Title Title"
+            "A A A A"
+            "B B B B"
+            "C C C C"
+            "D D D D"
+            "E E E E"
+            "F F F F"
+            "G G G G"
+            "H H H H"
+            "I I I I"
+            "J J J J"
+            "K K K K"
+            "L L L L"
+            "M M M M"
+        ;
+        row-gap: 10px !important;
+        padding: 20px;
+        width: 90%;
+    }
+
+    .coupon_details__form>* {
+        width:300px;
+    text-align: center;
+
+    }
+    
 }
 
-.A, .C, .R {
-    margin-left: 15%;
+.coupon_details__form>* {
+    box-sizing: border-box !important;
+
 }
 
-.P, .I, .CL {
-    margin-right: 15%;
+.coupon_details__grid_title {
+    grid-area: Title;
 }
-
-.A,
-.P,
-.I {
-    width: 74.5% !important;
-}
-
-.T {
-    grid-area: T;
-}
-
-.D {
-    grid-area: D;
-}
-
-.A {
-    grid-area: A;
-}
-
-.P {
-    grid-area: P;
-}
-
-.C {
-    grid-area: C;
-}
-
-.I {
-    grid-area: I;
-}
-
-.SD {
-    grid-area: SD;
-}
-
-.ED {
-    grid-area: ED;
-}
-
-.S {
-    grid-area: S;
-    width: 83% !important;
-}
-
-.R {
-    grid-area: R;
-}
-
-.CL {
-    grid-area: CL;
-}
-
-.gridTitle{
-    grid-area: gridTitle;
-}
-
 
 .errorMessage {
     width: 30vw;
@@ -170,22 +126,64 @@
     max-width: 30vw !important;
     text-align: center;
     color: rgb(79, 37, 21);
+}
+
+.coupon_details__select {
+    text-align: center;
+    background-color: bisque !important;
+    color: rgb(114, 17, 17);
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px;
+    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
 
 }
 
-.helpTitle{
-    width: 83% !important;
+.coupon_details__select:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgb(79, 21, 21);
+    background-color: rgb(79, 21, 21) !important;
+    color: rgb(255, 186, 186) !important;
 }
 
-.select{
+.coupon_details__button {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    background-color: bisque;
+    padding: 10px;
+}
+
+
+.oldCouponDetails {
+    padding: 1.8vw 3vw 3vw 3vw;
+    border-radius: 20px;
+    width: fit-content;
+    margin: auto;
+    margin-top: 3vw;
+    background-color: rgb(242, 206, 163);
+    overflow: hidden;
+}
+
+.oldCouponDetails>* {
+    padding: 8px 0 8px 0;
+}
+
+.coupon_details__old_title {
+    color: rgb(114, 17, 17);
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 5px;
     text-align: center;
 }
 
-.oldCouponDetails{
-    padding: 10%;
+.oldCouponDetails_Edit_coupon_details {
+    font-size: 16px;
+    padding: 10px;
+    font-weight: 700;
 }
 
-.buttons-edit{
+.buttons-edit {
     background-color: rgb(79, 21, 21);
     color: rgb(255, 186, 186);
     width: 10vw;
@@ -194,18 +192,131 @@
     margin: 5%;
 }
 
-.buttons-area{
+.buttons-area {
     display: flex;
     flex-direction: row;
-    margin: 5%;
+    margin-top: 5%;
+    
 }
 
-.p-details{
+.old_coupon_p {
     display: inline;
+    font-size: 20px;
+
 }
 
-.s-details{
+.old_coupon__span {
     font-size: medium !important;
-    font-weight: 600;
+    font-weight: 700;
     display: inline-block;
+    color: rgb(114, 17, 17);
+    font-size: 20px !important;
+}
+
+.oldCouponDetails-Edit_coupon {
+    padding: 10px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: bisque;
+    justify-self: center;
+
+}
+
+.coupon_details__title {
+    color: rgb(114, 17, 17);
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+.coupon_details__input_disabled {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    background-color: rgb(221, 197, 167);
+}
+
+.coupon_details__input {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    background-color: bisque;
+}
+
+.coupon_details__button_SD {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    margin: 7px;
+    background-color: bisque;
+}
+
+.coupon_details__grid_title {
+    grid-area: Title;
+    width: fit-content;
+    justify-self: center;
+}
+
+.coupon_details__disabled_grid_A {
+    grid-area: A;
+}
+
+.coupon_details__disabled_grid_B {
+    grid-area: B;
+}
+
+.coupon_details__input_C {
+    grid-area: C;
+}
+
+.coupon_details__input_D {
+    grid-area: D;
+}
+
+.coupon_details__input_E {
+    grid-area: E;
+
+}
+
+.coupon_details__input_F {
+    grid-area: F;
+
+}
+
+.coupon_details__select_G {
+    grid-area: G;
+
+}
+
+.coupon_details__input_H {
+    grid-area: H;
+
+}
+
+.coupon_details__input_I {
+    grid-area: I;
+}
+
+.coupon_details__input_J {
+    grid-area: J;
+}
+
+.coupon_details__button_K {
+    grid-area: K;
+}
+
+.coupon_details__button_L {
+    grid-area: L;
+
+}
+
+.coupon_details__button_M {
+    grid-area: M;
+
+}
+
+.coupon_details__purchase_button{
+    margin: auto;
 }

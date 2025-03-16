@@ -1,6 +1,7 @@
 .CustomerCard {
-	border: 1px solid black;
-    border-radius: 8px;
-    padding: 3%;
 
+}
+
+.customer_title{
+    text-align:  center;
 }

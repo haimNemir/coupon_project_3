@@ -12,25 +12,25 @@ interface CouponProps {
 export function CouponCard(props: CouponProps): JSX.Element {
 	const formattedStartDate = moment(props.coupon.startDate).format('YYYY/MM/DD hh:mm:ss'); //using here "moments.js" extention to get a nice format.
 	const formattedEndDate = moment(props.coupon.endDate).format('YYYY/MM/DD hh:mm:ss');
-	
+
 	const showPurchaseButton = useContext(Context) // gets from component <MyCoupons/> the context as boolean (false) is replase props and skip on all other components between those two.
 	const navigate = useNavigate()
-	function navigateToDetails(){
-		navigate(`/get_one_coupon/${props.coupon.id}` , {state: {showPurchase: showPurchaseButton}}) // send to <CouponDetails/> the value of showPurchaseButton.
+	function navigateToDetails() {
+		navigate(`/get_one_coupon/${props.coupon.id}`, { state: { showPurchase: showPurchaseButton } }) // send to <CouponDetails/> the value of showPurchaseButton.
 	}
 
 	return (
-		<div className="CouponCard" onClick={navigateToDetails}> {/*go to <CouponDetails/> */}
-				<p>Title: 		{props.coupon.title}</p>
-				<p>Amount:		{props.coupon.amount}</p>
-				<p>Category: 	{props.coupon.category}</p>
-				<p>Company name:{props.coupon.company.name}</p>
-				<p>Description: {props.coupon.description}</p>
-				<p>Start date:  {formattedStartDate}</p>
-				<p>End date: 	{formattedEndDate}</p>
-				<p>Id: 			{props.coupon.id}</p>
-				<p>Price: 		{props.coupon.price}</p>
-				<p>Image: 		{props.coupon.image}</p>
+		<div className="customized_card" onClick={navigateToDetails}> {/*go to <CouponDetails/> */}
+			<h2 className="coupon_title">	<span>{props.coupon.title}</span></h2>
+			<p>Company name:<span>   {props.coupon.company.name}</span></p>
+			<p>Category: 	<span> {props.coupon.category.charAt(0) + props.coupon.category.slice(1).toLowerCase()}</span></p>
+			<p>Description:<span>   {props.coupon.description}</span></p>
+			<p>Amount left:		<span>   {props.coupon.amount}</span></p>
+			<p>Started at: <span>   {formattedStartDate}</span></p>
+			<p>End at: 	<span>   {formattedEndDate}</span></p>
+			<p>Serial number: <span>   {props.coupon.id}</span></p>
+			<p>Price: 		<span>   {props.coupon.price}</span></p>
+			{/* <p>Image: 		<span>{props.coupon.image}</span></p> */}
 		</div>
 	);
 }

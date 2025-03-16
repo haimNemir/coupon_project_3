@@ -7,6 +7,7 @@ import { CompanyCard } from "../CompaniesArea/CompanyCard/CompanyCard";
 import { CustomerCard } from "../CustomersArea/CustomerCard/CustomerCard";
 import { AddCompany } from "../CompaniesArea/AddCompany/AddCompany";
 import { AddCustomer } from "../CustomersArea/AddCustomer/AddCustomer";
+import AddIcon from '@mui/icons-material/Add';
 
 export function Clients(): JSX.Element {
 
@@ -49,7 +50,7 @@ export function Clients(): JSX.Element {
                     adminSelected === "Companies" &&
                     (<>
                         {
-                            !addingCompanyMode ? <button onClick={() => setAddingCompanyMode(!addingCompanyMode)}>Add company</button>
+                            !addingCompanyMode ? <button className="add_card customized_card" onClick={() => setAddingCompanyMode(!addingCompanyMode)}>Add company <br/><AddIcon sx={{ fontSize: 80 }} /></button>
                                 : <AddCompany changeAddingMode={setAddingCompanyMode} />
                         }
                         {
@@ -63,7 +64,7 @@ export function Clients(): JSX.Element {
                     adminSelected === "Customers" &&
                     (<>
                         {
-                            !addingCustomerMode ? <button onClick={() => setAddingCustomerMode(!addingCustomerMode)}>Add customer</button>
+                            !addingCustomerMode ? <button className="add_card customized_card" onClick={() => setAddingCustomerMode(!addingCustomerMode)}>Add customer<br/><AddIcon sx={{ fontSize: 80 }} /></button>
                                 : <AddCustomer changeAddingMode={setAddingCustomerMode} />}
                         {
                             customerList.length > 0 ? customerList.map(customer =>

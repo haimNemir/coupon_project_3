@@ -8,12 +8,11 @@ interface CustomerProps {
 
 export function CustomerCard(props: CustomerProps): JSX.Element {
     return (
-        <div className="CustomerCard">
+        <div className="CustomerCard customized_card">
             {<NavLink to={`/get_one_customer/${props.customer.id}`}> {/*go to <CustomerDetails/> */}
-                <p>Customer ID: {props.customer.id}</p>
-                <p>First name: {props.customer.firstName}</p>
-                <p>Last name: {props.customer.lastName}</p>
-                <p>Email: {props.customer.email}</p>
+                <h2 className="customer_title"><span>{props.customer.firstName} {props.customer.lastName}</span></h2>
+                <p>Customer number:<span> {props.customer.id}</span></p>
+                <p>Email: <span>{props.customer.email}</span></p>
             </NavLink>}
 
         </div>

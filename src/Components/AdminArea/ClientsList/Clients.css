@@ -19,10 +19,14 @@
     text-align: center;
     border-radius: 8px;
     font-size: medium;
-    
 }
 
 .selectButton:hover{
     cursor: pointer;
 }
 
+.add_card{
+    font-size: 24px ;
+    font-weight: 800;
+    color: rgb(114, 17, 17);
+}

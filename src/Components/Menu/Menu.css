@@ -10,12 +10,15 @@
 
 .nuv_link{
     text-decoration: none; 
-    color: rgb(255, 186, 186);
+    color: rgb(255, 186, 186); 
+
 
 }
 
 .active{ /* for selected link in menu*/
     text-decoration: none; 
-    color: rgb(218, 42, 98);
-    
+    color: rgb(241, 122, 122); 
+    border-radius: 30px;
+    font-size: larger;
+    font-weight: 700;
 }

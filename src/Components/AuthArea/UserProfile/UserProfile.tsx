@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { ClientType } from "../../../Models/ClientType";
 import "./UserProfile.css";
 import { authSlice, authStore, JwtToken, logout } from "../../../Redux/AuthStore";
-import { useSelector } from "react-redux";
 import customerService from "../../../Services/CustomerService";
 import { Customer } from "../../../Models/Customer";
 import { Company } from "../../../Models/Company";
@@ -40,7 +38,6 @@ export function UserProfile(): JSX.Element {
         authService.logout(email, roleType) // to log out from the server.
             .then(() => {
                 authStore.dispatch(logout()) // to clean the cache
-                localStorage.removeItem("my_token") //remove token from localStorage
                 navigate("/")
             })
     }
@@ -50,27 +47,27 @@ export function UserProfile(): JSX.Element {
             <pre>
                 {role === "Company" &&
                     <div>
-                        <p>Id: {companyDetails?.id}</p>
-                        <p>Name: {companyDetails?.name}</p>
-                        <p>Email: {companyDetails?.email}</p>
+                        <p>Id number: <span className="user_profile__span" > {companyDetails?.id}</span></p>
+                        <p>Company name: <span className="user_profile__span">{companyDetails?.name}</span></p>
+                        <p>Company email: <span className="user_profile__span">{companyDetails?.email}</span></p>
                     </div>
                 }
                 {role === "Customer" &&
                     <div>
-                        <p>Id: {customerDetails?.id}</p>
-                        <p>Full name: {customerDetails?.firstName + " " + customerDetails?.lastName}</p>
-                        <p>Email: {customerDetails?.email}</p>
+                        <p>Id number: <span className="user_profile__span">{customerDetails?.id}</span></p>
+                        <p>Full name: <span className="user_profile__span">{customerDetails?.firstName + " " + customerDetails?.lastName}</span></p>
+                        <p>Email: <span className="user_profile__span">{customerDetails?.email}</span></p>
                     </div>
                 }
                 {role === "Administrator" &&
                     <div>
-                        <h2>Welcome administrator, how can i help you?</h2>
+                        <p className="user_propile_p">Welcome administrator, how can i help you?</p>
                     </div>
                 }
             </pre>
             <div className="buttons">
-                <button className="button" onClick={handleLogin}>Login</button>
-                <button className="button" onClick={handleLogout}>Logout</button>
+                <button className="customized_button user_profile__buttons" onClick={handleLogin}>Login</button>
+                <button className="customized_button user_profile__buttons" onClick={handleLogout}>Logout</button>
             </div>
 
         </div>

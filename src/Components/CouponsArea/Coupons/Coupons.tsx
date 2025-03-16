@@ -17,7 +17,7 @@ export function Coupons(): JSX.Element {
 
     return (
         <div className="Coupons">
-            <p>{error}</p>
+            {error}?<p>{error}</p>:
             {coupons?.map(coupon => 
                 <CouponCard
                 key={coupon.id}

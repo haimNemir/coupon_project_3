@@ -29,17 +29,16 @@ export function AddCompany(props: ParentProps): JSX.Element {
     function handleClose() {
         props.changeAddingMode(false)
     }
-    return (
+    return ( 
         <div className="AddCompany">
-
             <form onSubmit={handleSubmit(handleAdding)}>
-                <h3 >Add company</h3>
-                <input placeholder="Enter company name" type="text" required minLength={2} maxLength={99} {...register("name")} /><br />
-                <input placeholder="Enter company email" type="text" required minLength={2} maxLength={99} {...register("email")} /><br />
-                <input placeholder="Enter company password" type="text" required minLength={5} maxLength={99} {...register("password")} /><br />
-                <button type="submit">Save</button>
-                <button type="button" onClick={() => reset()}>Reset</button>
-                <button type="button" onClick={handleClose}>Close</button>
+                <p className="add_company__title">Add new company</p>
+                <input className="add_company__input" placeholder="Enter company name" type="text" required minLength={2} maxLength={99} {...register("name")} /><br />
+                <input className="add_company__input" placeholder="Enter company email" type="text" required minLength={2} maxLength={99} {...register("email")} /><br />
+                <input className="add_company__input" placeholder="Enter company password" type="text" required minLength={5} maxLength={99} {...register("password")} /><br />
+                <button className="customized_button Add_company__buttons" type="submit">Save</button>
+                <button className="customized_button Add_company__buttons" type="button" onClick={() => reset()}>Reset</button>
+                <button className="customized_button Add_company__buttons" type="button" onClick={handleClose}>Close</button>
             </form>
         </div>
     );

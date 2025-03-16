@@ -5,6 +5,7 @@ import { Customer } from "../../../../Models/Customer";
 import adminService from "../../../../Services/AdminService";
 import { CouponCard } from "../../../CouponsArea/CouponCard/CouponCard";
 import { EditCustomer } from "../EditCustomer/EditCustomer";
+import moment from "moment";
 
 export function CustomerDetails(): JSX.Element {
 
@@ -39,30 +40,40 @@ export function CustomerDetails(): JSX.Element {
         <div className="CustomerDetails">
             {editMode ? <EditCustomer customer={customer} />
                 :
-                <div className="displayGrid">
-                    <div className="GridA">
-                        <h3>Customer details:</h3>
-                        <p>Customer ID: {customer?.id}</p>
-                        <p>First name: {customer?.firstName}</p>
-                        <p>Last name: {customer?.lastName}</p>
-                        <p>Email: {customer?.email}</p>
+                <div className="customer_details__no_edit"> 
+                    <div className="displayGrid">
+                        <p className="customer_details__title Grid_title">Customer details:</p>
+                        <div className="GridA">
+                            <p>Customer ID: <span className="customer_details__span">{customer?.id}</span></p>
+                            <p>First name:<span className="customer_details__span"> {customer?.firstName}</span></p>
+                            <p>Last name: <span className="customer_details__span">{customer?.lastName}</span></p>
+                            <p>Email: <span className="customer_details__span">{customer?.email}</span></p>
+                        </div>
+                        <div className="GridB">
+                            <p className="customer_details__list">Purchased coupons list:</p>
+                            {customer.coupons.length > 0 ? customer.coupons.map(coupon =>
+                                <details className="customer_details__Details">
+                                    <summary className="customer_details__summary">{coupon.id} - {coupon.id < 10 ? "\u00A0\u00A0" : ""}&emsp; {coupon.title} </summary>
+                                    <div className="customer_details__p">
+                                        <p className="customer_details__summary_expend">The issuing company: <span className="customer_details__span">{coupon.company.name}</span></p>
+                                        <p className="customer_details__summary_expend">Price: <span className="customer_details__span">{coupon.price}</span></p>
+                                        <p className="customer_details__summary_expend">Expired time: <span className="customer_details__span">{moment(coupon.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span> </p>
+                                        <p className="customer_details__summary_expend">Description: <span className="customer_details__span">{coupon.description}</span></p>
+                                        <p className="customer_details__summary_expend">Category: <span className="customer_details__span">{coupon.category.charAt(0) + coupon.category.slice(1).toLowerCase()}</span></p>
+                                    </div>
+                                </details>
+                            )
+                                :
+                                <h3 className="errorMessage">This customer has not purchased any coupons yet.</h3>
+                            }
+                        </div>
+
+                        <button className="customized_button GridC customer_details__buttons" onClick={() => setEditMode(!editMode)}>Edit customer</button>
+                        <button className="customized_button GridD customer_details__buttons" onClick={deleteCustomer} >Delete customer</button>
                     </div>
-                    <div className="GridB">
-                        <h3>Purchased coupons:</h3>
-                        {customer.coupons.length > 0 ? customer.coupons.map(coupon =>
-                            <p>
-                                Coupon ID: {coupon.id} <br />
-                                Description: {coupon.description} <br />
-                            </p>
-                        )
-                            :
-                            <h3 className="errorMessage">You haven't created any coupons from this categories yet, Please create one first.</h3>
-                        }
-                    </div>
-                    <button className="GridC" onClick={() => setEditMode(!editMode)}>Edit customer</button>
-                    <button className="GridD" onClick={deleteCustomer} >Delete customer</button>
                 </div>
             }
+
         </div>
     );
 } 

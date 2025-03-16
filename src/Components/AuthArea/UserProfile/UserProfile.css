@@ -5,16 +5,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-}
+    font-size: larger;
 
-.button{
-    width: 10vw;
-    height: 5vw;
-    border-radius: 8px;
-    background-color: rgb(79, 21, 21);
-    color: rgb(255, 186, 186);
-    font-size: medium;
-    margin: 2%;
 }
 
 p{
@@ -22,8 +14,24 @@ p{
     font-size: larger;
     font-family: robo;
 }
+ 
+.user_profile__buttons{
+    font-size: 20px;
+    padding: 12px;
+    font-weight: 700;
+    margin: 10px;
+    color: rgb(114, 17, 17);
 
-.buttons{
-    display: flex;
-    flex-direction: row;
+}
+
+
+.user_propile_p{
+    color: rgb(114, 17, 17);
+    font-weight: 800;
+    font-size: 28px;
+    margin-top: 0;
+}
+
+.user_profile__span{
+    color: rgb(114, 17, 17);
 }

@@ -1,3 +1,91 @@
 .EditCustomer {
-	
+    border-radius: 8px;
+    padding: 10px;
+    margin: auto;
+    margin-top: 7vw;
+    width: fit-content;
+}
+ 
+
+.edit_customer__buttons {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+    margin: 7px;
+    background-color: bisque;
+}
+
+.edit_customer__div {
+    background-color: rgb(242, 206, 163);
+    padding: 3vw;
+    border-radius: 20px;
+    margin: auto;
+}
+
+
+.edit_customer__title {
+    color: rgb(114, 17, 17);
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: -5px;
+    text-align: center;
+}
+
+.edit_customer__input {
+    font-size: 16px;
+    padding: 5px;
+    background-color: bisque;
+    width: 92.5%;
+    justify-self: center;
+}
+
+.edit_customer__input_disabled {
+    background-color: rgb(221, 197, 167);
+}
+
+.edit_customer__form { 
+    width: 27vw;
+    display: grid;
+    grid-template-areas:
+        "A A A"
+        "B B B"
+        "C C C"
+        "D D D"
+        "E E E"
+        "F G H"
+    ;
+    column-gap: 1%;
+    row-gap: 2%;
+}
+
+.grid_A {
+    grid-area: A;
+}
+
+.grid_B {
+    grid-area: B;
+}
+
+.grid_C {
+    grid-area: C;
+}
+
+.grid_D {
+    grid-area: D;
+}
+
+.grid_E {
+    grid-area: E;
+}
+
+.grid_F {
+    grid-area: F;
+}
+
+.grid_G {
+    grid-area: G;
+}
+
+.grid_H {
+    grid-area: H;
 }

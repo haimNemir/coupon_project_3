@@ -1,42 +1,107 @@
-.CustomerDetails {
-    border: 1px solid black;
+.customer_details__no_edit {
     border-radius: 8px;
-    max-width: fit-content;
+    width: 50vw;
     padding: 10px;
     margin: auto;
-    margin-top: 2%;
-    text-align: center;
-    max-width: 50%;
+    margin-top: 7vw;
 }
 
-.displayGrid{
+.displayGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "T T T T"
+        "A A A C"
+        "A A A D"
+        "B B B B"
+    ;
     gap: 1vw;
+    background-color: rgb(242, 206, 163);
+    padding: 1.8vw 3vw 3vw 3vw;
+    border-radius: 20px;
 }
 
-.GridB{
+.Grid_title {
+    grid-area: T;
+}
+
+.GridA {
+    grid-area: A;
+}
+
+.GridB {
     max-height: 18vw;
     overflow: scroll;
+    grid-area: B;
 }
 
-.GridC{
-    grid-column: 1 / 3;
-    grid-column: span 2; 
-    width: 60%;
-    justify-self: center;
+.GridC {
+    grid-area: C;
+    align-self: self-end;
 
 }
 
-.GridD{
-    grid-column: 1 / 3;
-    grid-column: span 2; 
-    width: 60%;
+.GridD {
+    grid-area: D;
+    align-self: self-start;
 
-    justify-self: center;
 }
 
-.errorMessage{
+.errorMessage {
     display: inline-block;
     max-width: 50%;
+}
+
+.customer_details__buttons {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: bisque;
+    width: 80%;
+    height: 60%;
+    justify-self: center;
+}
+
+
+.customer_details__title {
+    color: rgb(114, 17, 17);
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center; 
+}
+
+.customer_details__span {
+    color: rgb(114, 17, 17);
+
+}
+
+.customer_details__Details {
+    font-size: 16px;
+    padding: 7px;
+    font-weight: 700;
+    margin: 5px;
+    background-color: bisque;
+    color: rgb(114, 17, 17);
+    border-radius: 8px;
+    text-align: start;
+}
+
+.customer_details__summary:hover {
+    cursor: pointer;
+}
+
+.customer_details__summary_expend {
+    font-size: 16px;
+    color: black;
+}
+
+.customer_details__list{
+    color: rgb(114, 17, 17);
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 0;
+}
+
+
+.customer_details__p{
+    margin-left: 13%;
 }

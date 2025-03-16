@@ -59,7 +59,7 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
     const { register, handleSubmit, reset, setValue } = useForm<Coupon>({
         mode: "onSubmit",
         //defined a default values for the form:
-        defaultValues: {  
+        defaultValues: {
             id: 0, startDate: new Date(formattedDateToday),
             endDate: new Date(formattedDateTomorrow)
         }
@@ -111,18 +111,17 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
         <div >
             {error ? <p>{error}</p> :
                 <div className="CouponsList">
-                    {clientType == "Company" && !addingMode &&
-                        <button onClick={handleClick} className="addCoupon"><h1>Add coupon</h1><AddIcon sx={{ fontSize: 120 }} /></button>
+                    {clientType == "Company" && !addingMode && 
+                        <button onClick={handleClick} className="coupon_list__add_coupon customized_card"><h1 className="coupon_list_add_coupon">Add coupon</h1><AddIcon className="coupon_list_add_coupon" sx={{ fontSize: 120 }} /></button>
                     }
                     {clientType == "Company" && addingMode &&
-
-                        <form className="form" onSubmit={handleSubmit(handleAddingCoupon)}>
-                            <h2 className="gridTitle">Create new coupon</h2>
-                            <input className="T" type="text" placeholder="Title" required {...register("title")} /><br />
-                            <input className="D" type="text" placeholder="Description" required {...register("description")} /><br />
-                            <input className="A" type="number" placeholder="Amount in stock" min={1} max={999999} required {...register("amount")} /><br />
-                            <input className="P" type="number" placeholder="Price" min={1} max={999999} required {...register("price")} /><br />
-                            <select className="C select" defaultValue={""} required {...register("category")}>
+                        <form className="coupon_list__form" onSubmit={handleSubmit(handleAddingCoupon)}>
+                            <p className="coupons_list__title coupons_list__grid_title">Create new coupon</p>
+                            <input className="coupons_list__input T" type="text" placeholder="Title" required {...register("title")} />
+                            <input className="coupons_list__input D" type="text" placeholder="Description" required {...register("description")} />
+                            <input className="coupons_list__input A" title="Amount in stock" type="number" placeholder="Amount in stock" min={1} max={999999} required {...register("amount")} />
+                            <input className="coupons_list__input P" type="number" placeholder="Price" min={1} max={999999} required {...register("price")} />
+                            <select className="C coupon_list__select" defaultValue={""} required {...register("category")}>
                                 <option disabled value="">Category</option>
                                 {listOfCategories.map((category) => (
                                     <option key={category.value} value={category.value}>
@@ -130,21 +129,22 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
                                     </option>
                                 ))}
                             </select><br />
-                            <input className="I" type="text" placeholder="Image" required {...register("image")} /><br />
+                            <input className="coupons_list__input I" type="text" placeholder="Image" required {...register("image")} /><br />
                             {/*here line below you dont need to enter {...register("startDate")} because onChange handle it. */}
-                            {showStartDate ? <input className="SD" type="datetime-local" min={formattedDateToday} required onChange={enterStartDate} /> :
-                                <button type="button" onClick={() => setShowStartDate(!showStartDate)} className="SD helpTitle">Enter start date</button>
+                            {showStartDate ? <input className="coupons_list__input SD" type="datetime-local" min={formattedDateToday} required onChange={enterStartDate} /> :
+                                <button className="customized_button coupons_list__helpTitle SD coupons_list__buttons" type="button" onClick={() => setShowStartDate(!showStartDate)} >Enter start date</button>
                             }
-                            {showEndDate ? <input className="ED" type="datetime-local" min={minEndDate ?? formattedDateTomorrow} required {...register("endDate")} /> :
-                                <button type="button" onClick={() => setShowEndDate(!showEndDate)} className="ED helpTitle">Enter end date</button>
+                            {showEndDate ? <input className="coupons_list__input ED" type="datetime-local" min={minEndDate ?? formattedDateTomorrow} required {...register("endDate")} /> :
+                                <button className="customized_button ED coupons_list__helpTitle coupons_list__buttons" type="button" onClick={() => setShowEndDate(!showEndDate)} >Enter end date</button>
                             }
-                            <button className="S" type="submit">Save</button>
-                            <button className="R" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
-                            <button className="CL" type="button" onClick={handleClick}>Close</button>
+                            <button className="S customized_button coupons_list__buttons" type="submit">Save</button>
+                            <button className="R customized_button coupons_list__buttons" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
+                            <button className="CL customized_button coupons_list__buttons" type="button" onClick={handleClick}>Close</button>
                         </form>
                     }
+
                     {
-                        allCoupons.length > 0 ?
+                        allCoupons.length > 0 ? 
                             allCoupons?.map(coupon => <CouponCard key={coupon.id} coupon={coupon} />) : ""
                     }
                     {
