@@ -25,17 +25,26 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
     const [allCoupons, setAllCoupons] = useState<Coupon[]>(props.list);
     const [error, setError] = useState<string>("");
     const [addingMode, setAddingMode] = useState<boolean>(false)
+    const [fetchingDataCompany, setFetchingDataCompany] = useState<boolean>(true)
+    const [fetchingDataCustomer, setFetchingDataCustomer] = useState<boolean>(true)
     const clientType = authStore.getState().role
     const navigate = useNavigate()
 
     useEffect(() => {
         if (!props.firstTimeRequested) {
-            setAllCoupons(props.list)
+            setAllCoupons(props.list);
+            setFetchingDataCustomer(false)
+            setFetchingDataCompany(false)
+
             // in case the client is an Customer:       
         } else if (props.firstTimeRequested && authStore.getState().role === "Customer") {
             customerService.getAllCoupons()
                 .then(result => {
                     setAllCoupons(result);
+                    setFetchingDataCustomer(false);
+                    setFetchingDataCompany(false);
+                    // alert("fetched data customer")
+
                 })
                 .catch((error) => { setError(error || "An unknown error occurred") })
             // in case the client is an Company:       
@@ -43,6 +52,10 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
             companyService.getCompanyCoupons()
                 .then(result => {
                     setAllCoupons(result);
+                    setFetchingDataCompany(false);
+                    setFetchingDataCustomer(false);
+                    alert("fetched data company")
+
                 })
                 .catch((error) => { setError(error || "An unknown error occurred") })
         }
@@ -109,9 +122,10 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
 
     return (
         <div >
+
             {error ? <p>{error}</p> :
                 <div className="CouponsList">
-                    {clientType == "Company" && !addingMode && 
+                    {clientType == "Company" && !addingMode &&
                         <button onClick={handleClick} className="coupon_list__add_coupon customized_card"><h1 className="coupon_list_add_coupon">Add coupon</h1><AddIcon className="coupon_list_add_coupon" sx={{ fontSize: 120 }} /></button>
                     }
                     {clientType == "Company" && addingMode &&
@@ -144,16 +158,28 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
                     }
 
                     {
-                        allCoupons.length > 0 ? 
-                            allCoupons?.map(coupon => <CouponCard key={coupon.id} coupon={coupon} />) : ""
+                        fetchingDataCustomer || fetchingDataCompany ?  clientType == "Company" ?
+                            <div className="coupon_list__company_spinner-container">
+                                <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                            </div>
+                            :
+                            <div className="coupon_list__customer_spinner-container">
+                                <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                            </div>
+                            :
+
+                            allCoupons.length > 0 ?
+                                allCoupons?.map(coupon => <CouponCard key={coupon.id} coupon={coupon} />)
+                                :
+                                allCoupons.length === 0 && clientType == "Company" ?
+                                    <div className="coupons_list__errorMessageDiv"><h2 className="coupons_list__errorMessage">You haven't created any coupons from this category yet, Please create one first</h2></div>
+                                    :
+                                    allCoupons.length === 0 && clientType == "Customer" && <div>
+                                        <div className="coupons_list__errorMessageDiv"> <h2 className="coupons_list__errorMessage">You haven't purchased any coupons from this category yet, Please purchase one first</h2></div>
+                                    </div>
                     }
-                    {
-                        allCoupons.length === 0 && clientType == "Company" &&
-                        <h2 className="errorMessage">You haven't created any coupons from this categories yet, Please create one first</h2>}
-                    {
-                        allCoupons.length === 0 && clientType == "Customer" &&
-                        <h2 className="errorMessage">You haven't purchased any coupons from this category yet, Please purchase one first</h2>
-                    }
+
+                    
                 </div>}
         </div>
     );

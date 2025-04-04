@@ -20,7 +20,7 @@ export function CouponCard(props: CouponProps): JSX.Element {
 	}
 
 	return (
-		<div className="customized_card" onClick={navigateToDetails}> {/*go to <CouponDetails/> */}
+		<div className="customized_card coupon_card__card" onClick={navigateToDetails}> {/*go to <CouponDetails/> */}
 			<h2 className="coupon_title">	<span>{props.coupon.title}</span></h2>
 			<p>Company name:<span>   {props.coupon.company.name}</span></p>
 			<p>Category: 	<span> {props.coupon.category.charAt(0) + props.coupon.category.slice(1).toLowerCase()}</span></p>

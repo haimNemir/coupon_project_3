@@ -16,9 +16,9 @@
         color: rgb(114, 17, 17);
         font-size: 24px;
         font-weight: 700;
-        margin-left: 14% ;
         margin-top: -10px;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+        text-align: center;
 }
 
 .add_customer__input {
@@ -64,4 +64,11 @@
 
 .Grid_G {
         grid-area: G;
+}
+
+@media (max-width: 768px){
+ .add_customer__title{
+        margin-top: 0;
+        margin-bottom: 15px;
+ }
 }

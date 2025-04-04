@@ -12,7 +12,7 @@ export function AuthChecker(): JSX.Element {
         } else if (expiredTime !== "" && Number(expiredTime) > Math.floor(Date.now() / 1000)) {
             const role = authStore.getState().role
             if (role === "Customer") {
-                navigate("/coupons_list")
+                navigate("/coupons_list") 
             }
             else if (role === "Company") {
                 navigate("/get_all_coupons")

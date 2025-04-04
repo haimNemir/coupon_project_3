@@ -40,11 +40,15 @@ export function UserProfile(): JSX.Element {
                 authStore.dispatch(logout()) // to clean the cache
                 navigate("/")
             })
+            .catch(error => {
+                alert(error.response.data);
+                navigate("/")
+            })
     }
 
     return (
         <div className="UserProfile">
-            <pre>
+            <pre className="user_profile__pre">
                 {role === "Company" &&
                     <div>
                         <p>Id number: <span className="user_profile__span" > {companyDetails?.id}</span></p>
@@ -61,7 +65,8 @@ export function UserProfile(): JSX.Element {
                 }
                 {role === "Administrator" &&
                     <div>
-                        <p className="user_propile_p">Welcome administrator, how can i help you?</p>
+                        <p className="user_propile_p">Welcome administrator,
+                            how can i help you?</p>
                     </div>
                 }
             </pre>

@@ -8,7 +8,7 @@
     border-radius: 8px;
 }
 
- 
+
 .company_details__buttons {
     font-size: 18px;
     padding: 10px;
@@ -28,10 +28,35 @@
     color: rgb(114, 17, 17);
     font-size: 28px;
     font-weight: 700;
-    margin-left: 16.5% !important;
+    margin:auto;
     margin-top: 0;
+    text-align: center;
 }
 
 .company_details__span {
     color: rgb(114, 17, 17);
+}
+
+@media (max-width: 768px) {
+    .company_details__details {
+        width: 85vw;
+        margin: auto;
+        text-align: center;
+
+    }
+
+    .company_details__buttons {
+        font-size: 13px;
+        margin:  20px 5px 50px 5px ;
+    }
+
+    .company_details__title {
+        margin-top: 30px;
+    }
+
+    .company_details__details {
+        padding: 20px;
+        box-sizing: border-box;
+        max-width: 400px;
+    }
 }

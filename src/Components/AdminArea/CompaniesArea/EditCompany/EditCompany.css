@@ -5,24 +5,24 @@
     font-size: 18px;
     padding: 10px;
     font-weight: 700;
-    margin: 7px;
     background-color: bisque;
-
+    margin-bottom: 40px;
 }
 
 .edit_company__title {
     color: rgb(114, 17, 17);
     font-size: 30px;
     font-weight: 700;
-    margin-left: 22%;
-    margin-top: -5px;
-
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    margin-bottom: 30px;    
 }
 
 .edit_company__span {
     color: rgb(114, 17, 17);
 
-} 
+}
 
 .edit_company__details {
     background-color: rgb(242, 206, 163);
@@ -32,7 +32,7 @@
 
 .edit_company__input {
     font-size: 16px !important;
-    padding: 5px;
+    padding: 10px;
     background-color: bisque;
     width: 92.5% !important;
     justify-self: center;
@@ -52,8 +52,8 @@
         "D D D"
         "E F G"
     ;
-    column-gap: 1%;
-    row-gap: 2%;
+    column-gap: 5%;
+    row-gap: 3%;
 }
 
 .grid_A {
@@ -82,4 +82,33 @@
 
 .grid_G {
     grid-area: G;
+}
+
+@media (max-width: 768px) {
+    .edit_company__input {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .EditCompany {
+        width: 90vw;
+        max-width: 500px;
+    }
+
+    .edit_company__title {
+        width: 250px;
+        margin: auto;
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    .edit_company__buttons {
+        margin-bottom: 100px;
+        margin: 0;
+    }
+
+    .edit_company__form {
+        row-gap: 20px;
+    }
 }

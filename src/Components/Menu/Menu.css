@@ -1,5 +1,5 @@
 .Menu {
-	height: 5vw;
+    height: 5vw;
     min-height: 30px;
     background-color: rgb(79, 21, 21);
     align-items: center;
@@ -8,17 +8,26 @@
     display: flex;
 }
 
-.nuv_link{
-    text-decoration: none; 
-    color: rgb(255, 186, 186); 
+.nuv_link {
+    text-decoration: none;
+    color: rgb(255, 186, 186);
 
 
 }
 
-.active{ /* for selected link in menu*/
-    text-decoration: none; 
-    color: rgb(241, 122, 122); 
+.active {
+    /* for selected link in menu*/
+    text-decoration: none;
+    color: rgb(241, 122, 122);
     border-radius: 30px;
     font-size: larger;
     font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .Menu {
+        height: 45px;
+        font-size: 15px;
+
+    }
 }

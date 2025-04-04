@@ -16,3 +16,7 @@ span{
     padding-left: 5px;
 }
     
+
+.coupon_card__card{
+    max-width: 350px;
+}

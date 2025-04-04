@@ -1,21 +1,20 @@
 .UserProfile {
-	width: fit-content;
+    width: fit-content;
     margin: auto;
     margin-top: 15vw;
     display: flex;
     align-items: center;
     flex-direction: column;
     font-size: larger;
-
 }
 
-p{
+p {
     font-weight: bold;
     font-size: larger;
     font-family: robo;
 }
- 
-.user_profile__buttons{
+
+.user_profile__buttons {
     font-size: 20px;
     padding: 12px;
     font-weight: 700;
@@ -25,13 +24,32 @@ p{
 }
 
 
-.user_propile_p{
+.user_propile_p {
     color: rgb(114, 17, 17);
     font-weight: 800;
     font-size: 28px;
     margin-top: 0;
 }
 
-.user_profile__span{
+
+
+
+.user_profile__span {
     color: rgb(114, 17, 17);
+}
+
+@media (max-width: 768px) {
+    .user_propile_p {
+        font-size: 24px;
+        max-width: 300px !important;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-align: center;
+    }
+
+    .user_profile__pre{font-size: 24px;
+        white-space: normal;
+        overflow-wrap: break-word;
+        padding: 3vw;
+    }
 }

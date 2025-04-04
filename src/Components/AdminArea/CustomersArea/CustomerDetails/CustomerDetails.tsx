@@ -13,12 +13,14 @@ export function CustomerDetails(): JSX.Element {
     const customerId = +params.id!
     const [editMode, setEditMode] = useState<boolean>(false)
     const [customer, setCustomer] = useState<Customer>(new Customer('', '', '', '', []))
+    const [fetchingData, setFetchingData] = useState<boolean>(true)
     const navigate = useNavigate()
 
     useEffect(() => {
         adminService.getOneCustomer(customerId)
             .then(result => {
-                setCustomer(result)
+                setCustomer(result);
+                setFetchingData(false);
             })
             .catch(error => alert(error))
     }, [])
@@ -40,7 +42,7 @@ export function CustomerDetails(): JSX.Element {
         <div className="CustomerDetails">
             {editMode ? <EditCustomer customer={customer} />
                 :
-                <div className="customer_details__no_edit"> 
+                <div className="customer_details__no_edit">
                     <div className="displayGrid">
                         <p className="customer_details__title Grid_title">Customer details:</p>
                         <div className="GridA">
@@ -49,22 +51,27 @@ export function CustomerDetails(): JSX.Element {
                             <p>Last name: <span className="customer_details__span">{customer?.lastName}</span></p>
                             <p>Email: <span className="customer_details__span">{customer?.email}</span></p>
                         </div>
+                        <p className="customer_details__list customer_details__Grid_P">Purchased coupons list:</p>
                         <div className="GridB">
-                            <p className="customer_details__list">Purchased coupons list:</p>
-                            {customer.coupons.length > 0 ? customer.coupons.map(coupon =>
-                                <details className="customer_details__Details">
-                                    <summary className="customer_details__summary">{coupon.id} - {coupon.id < 10 ? "\u00A0\u00A0" : ""}&emsp; {coupon.title} </summary>
-                                    <div className="customer_details__p">
-                                        <p className="customer_details__summary_expend">The issuing company: <span className="customer_details__span">{coupon.company.name}</span></p>
-                                        <p className="customer_details__summary_expend">Price: <span className="customer_details__span">{coupon.price}</span></p>
-                                        <p className="customer_details__summary_expend">Expired time: <span className="customer_details__span">{moment(coupon.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span> </p>
-                                        <p className="customer_details__summary_expend">Description: <span className="customer_details__span">{coupon.description}</span></p>
-                                        <p className="customer_details__summary_expend">Category: <span className="customer_details__span">{coupon.category.charAt(0) + coupon.category.slice(1).toLowerCase()}</span></p>
-                                    </div>
-                                </details>
-                            )
-                                :
-                                <h3 className="errorMessage">This customer has not purchased any coupons yet.</h3>
+                            {
+                                fetchingData ?
+                                    <div className="spinner-container">
+                                        <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                    </div> :
+                                    customer.coupons.length > 0 ? customer.coupons.map(coupon =>
+                                        <details className="customer_details__Details">
+                                            <summary className="customer_details__summary">{coupon.id} - {coupon.id < 10 ? "\u00A0\u00A0" : ""}&emsp; {coupon.title} </summary>
+                                            <div className="customer_details__p">
+                                                <p className="customer_details__summary_expend">The issuing company: <span className="customer_details__span">{coupon.company.name}</span></p>
+                                                <p className="customer_details__summary_expend">Price: <span className="customer_details__span">{coupon.price}</span></p>
+                                                <p className="customer_details__summary_expend">Expired time: <span className="customer_details__span">{moment(coupon.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span> </p>
+                                                <p className="customer_details__summary_expend">Description: <span className="customer_details__span">{coupon.description}</span></p>
+                                                <p className="customer_details__summary_expend">Category: <span className="customer_details__span">{coupon.category.charAt(0) + coupon.category.slice(1).toLowerCase()}</span></p>
+                                            </div>
+                                        </details>
+                                    )
+                                        :
+                                        <h3 className="errorMessage">This customer has not purchased any coupons yet.</h3>
                             }
                         </div>
 

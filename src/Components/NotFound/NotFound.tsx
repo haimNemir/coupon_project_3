@@ -1,6 +1,5 @@
 import { JSX } from "react";
 import "./NotFound.css";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export function NotFound(): JSX.Element {

@@ -8,7 +8,7 @@ import { CouponDetails } from "../CouponsArea/CouponDetails/CouponDetails";
 import { MyCoupons } from "../CouponsArea/MyCoupons/MyCoupons";
 
 import { UserProfile } from "../AuthArea/UserProfile/UserProfile";
-import { Clients } from "../AdminArea/ClientsList/Clients";
+import { Clients } from "../AdminArea/Clients/Clients";
 import { CompanyDetails } from "../AdminArea/CompaniesArea/CompanyDetails/CompanyDetails";
 import { CustomerDetails } from "../AdminArea/CustomersArea/CustomerDetails/CustomerDetails";
 

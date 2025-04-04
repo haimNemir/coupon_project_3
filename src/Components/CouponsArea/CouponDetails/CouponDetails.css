@@ -49,67 +49,9 @@
     column-gap: 1vw;
     margin: auto;
     grid-template-columns: repeat(auto-fill, minmax(200px, 200px)) !important;
-    width: 65.5vw;
+    width: 800px;
 }
 
-
-@media (max-width: 768px) {
-    .coupon_details__form {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-areas:
-            " Title Title Title Title"
-            "A A A A"
-            "B B B B"
-            "C C C C"
-            "D D D D"
-            "E E E E"
-            "F F F F"
-            "G G G G"
-            "H H H H"
-            "I I I I"
-            "J J J J"
-            "K K K K"
-            "L L L L"
-            "M M M M"
-        ;
-        row-gap: 10px !important;
-        padding: 20px;
-    text-align: center;
-
-    }
-}
-
-@media (max-width: 480px) {
-    .coupon_details__form {
-
-        grid-template-areas:
-            " Title Title Title Title"
-            "A A A A"
-            "B B B B"
-            "C C C C"
-            "D D D D"
-            "E E E E"
-            "F F F F"
-            "G G G G"
-            "H H H H"
-            "I I I I"
-            "J J J J"
-            "K K K K"
-            "L L L L"
-            "M M M M"
-        ;
-        row-gap: 10px !important;
-        padding: 20px;
-        width: 90%;
-    }
-
-    .coupon_details__form>* {
-        width:300px;
-    text-align: center;
-
-    }
-    
-}
 
 .coupon_details__form>* {
     box-sizing: border-box !important;
@@ -196,7 +138,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 5%;
-    
+
 }
 
 .old_coupon_p {
@@ -317,6 +259,95 @@
 
 }
 
-.coupon_details__purchase_button{
+.coupon_details__purchase_button {
     margin: auto;
+}
+
+
+.CouponDetails__alert{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+@media (max-width: 1250px) {
+    .coupon_details__form {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            " Title Title Title Title"
+            "A A A A"
+            "B B B B"
+            "C C C C"
+            "D D D D"
+            "E E E E"
+            "F F F F"
+            "G G G G"
+            "H H H H"
+            "I I I I"
+            "J J J J"
+            "K K K K"
+            "L L L L"
+            "M M M M"
+        ;
+        row-gap: 10px !important;
+        padding: 20px;
+        text-align: center;
+        max-width: 400px !important;
+
+    }
+
+    .oldCouponDetails {
+        max-width: 80%;
+    }
+
+    .coupon_details__form {
+        max-width: 83%;
+    }
+
+    .coupon_details__form>* {
+        /* margin: auto; */
+    }
+}
+
+@media (max-width: 480px) {
+    .coupon_details__form {
+
+        grid-template-areas:
+            " Title Title Title Title"
+            "A A A A"
+            "B B B B"
+            "C C C C"
+            "D D D D"
+            "E E E E"
+            "F F F F"
+            "G G G G"
+            "H H H H"
+            "I I I I"
+            "J J J J"
+            "K K K K"
+            "L L L L"
+            "M M M M"
+        ;
+        row-gap: 10px !important;
+        padding: 20px;
+        width: 90%;
+    }
+
+    .coupon_details__form>* {
+        width: 300px;
+        text-align: center;
+        margin: auto;
+
+    }
+
+    .coupon_details__form {
+        max-width: 83% !important;
+    }
+
+    .coupon_details__grid_title {
+        margin-top: 15px;
+        margin-bottom: 35px;
+    }
 }

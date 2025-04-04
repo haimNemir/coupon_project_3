@@ -1,7 +1,8 @@
-.login__login_title{
+.login__login_title {
     color: rgb(78, 9, 9);
     margin-left: 42.5vw;
 }
+
 .tip {
     display: inline-block;
     font-size: large;
@@ -10,40 +11,95 @@
 
 .tips {
     margin-left: 5%;
+    text-align: start;
+
+}
+
+
+
+.tipBody { 
+    border-radius: 12px; 
+    background-color: rgb(245, 206, 158);
+    padding: 10px 20px 20px 20px;
+    box-sizing: border-box;
+    width: 300px;
 }
 
 .tipsTable {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-}
-
-.tipBody {
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 12px;
-    background-color: rgb(245, 206, 158);
-    margin: 0 2% 0 2%;
-    width: 30vw;
-    padding: 2%;
+    display: grid;
+    grid-template-areas:
+        "A B C";
+    margin-bottom: 50px;    
+    justify-content: center;
+    gap: 5vw;
 }
 
 .loginArea {
     display: grid;
     margin-left: 36vw;
-    grid-template-areas: 
-    "A A B"
-    "C C D"
-    "E F none";
+    grid-template-areas:
+        "A A B"
+        "C C D"
+        "E F none";
     grid-template-columns: 1fr 1fr 1fr;
     row-gap: 2%;
     column-gap: 2%;
     max-width: 40%;
 }
 
+@media (max-width: 1100px) {
+    .loginArea {
+        grid-template-columns: 1fr;
+        max-width: 300px !important;
+        grid-template-areas:
+            "A"
+            "B"
+            "C"
+            "D"
+            "E"
+            "F";
+        margin-left: none;
+        max-width: 90%;
+        margin: auto;
+        margin-bottom: 50px ;
+
+    }
+
+    .tipsTable {
+        grid-template-areas:
+            "A"
+            "B"
+            "C";
+        row-gap: 2%;
+
+    }
+
+    .login__login_title{
+        margin: auto;
+        width: 200px;
+        margin-top: 7vw;
+    }
+
+    .tipBody {
+        margin-bottom: 10px;
+        padding: 20px;
+        padding-top: 10px;
+
+    }
+
+    .tips{
+        text-align: center;
+        margin-left: 0;
+
+    }
+}
+
 .login__span {
     cursor: pointer;
+    color: rgb(114, 17, 17);
+    font-weight: 600;
+
+
 }
 
 .login__buttons {
@@ -55,7 +111,7 @@
 
 }
 
-.login__select{
+.login__select {
     padding: 10px;
     background-color: rgb(242, 206, 163);
     color: rgb(114, 17, 17);
@@ -65,42 +121,64 @@
     transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
-.login__select:hover{
-  cursor: pointer;
-  box-shadow: 0 0 2px 2px rgb(79, 21, 21);
-  background-color: rgb(79, 21, 21);
-  color: rgb(255, 186, 186) !important;
+.login__select:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgb(79, 21, 21);
+    background-color: rgb(79, 21, 21);
+    color: rgb(255, 186, 186) !important;
 }
 
-.login__input{
+.login__input {
     font-size: 16px;
     font-weight: 500;
     padding: 10px;
     margin: 5px;
 }
 
-.login__grid_A{
+.login__sapn {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(114, 17, 17);
+}
+
+.login__grid_A {
     grid-area: A;
 }
 
-.login__grid_B{
+.login__grid_B {
     grid-area: B;
-    
+    display: flex;
+    align-items: center;
+
 }
 
-.login__grid_C{
+.login__grid_C {
     grid-area: C;
 }
 
-.login__grid_D{
+.login__grid_D {
     grid-area: D;
+    display: flex;
+    align-items: center;
 }
 
-.login__grid_E{
+.login__grid_E {
     grid-area: E;
 }
 
-.login__grid_F{
+.login__grid_F {
     grid-area: F;
 }
 
+.tipsTable__grid_A {
+    grid-area: A;
+}
+
+.tipsTable__grid_B {
+    grid-area: B;
+}
+
+
+.tipsTable__grid_C {
+    grid-area: C;
+}

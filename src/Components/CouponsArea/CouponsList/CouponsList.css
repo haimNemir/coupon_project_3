@@ -7,17 +7,6 @@
     background-color: bisque;
 }
 
-@media (max-width: 768px) {
-    .CouponsList {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .CouponsList {
-        grid-template-columns: 1fr;
-    }
-}
 
 .css-1umw9bq-MuiSvgIcon-root {
     width: 20vw !important;
@@ -29,6 +18,7 @@
     border-radius: 8px;
     display: grid;
     grid-template-areas:
+        
         "c_l__title c_l__title c_l__title c_l__title"
         "T T T T"
         "D D D D"
@@ -42,18 +32,17 @@
     column-gap: 4% !important;
     padding: 10%;
     background-color: rgb(242, 206, 163);
-    
+
 }
 
-.coupon_list__form > * {
+.coupon_list__form>* {
     padding: 10px;
     box-sizing: border-box !important;
     width: 100%;
     margin: 0 !important;
 }
 
-.coupons_list__grid_title {
-}
+.coupons_list__grid_title {}
 
 .T {
     grid-area: T;
@@ -114,13 +103,25 @@
 }
 
 
-.errorMessage {
+.coupons_list__errorMessage {
     width: 30vw;
-    margin: auto;
-    max-width: 30vw !important;
+    max-width: 500px;
     text-align: center;
     color: rgb(79, 21, 21);
+    margin: auto;
+    margin-top: 80px;
 
+}
+
+.coupons_list__customer_errorMessageDiv{
+    display: flex;
+    justify-content: center;
+    width: 92vw;
+}
+
+.coupons_list__company_errorMessageDiv{
+    display: flex;
+    justify-content: center;
 }
 
 .coupon_list__select {
@@ -145,10 +146,11 @@
     font-weight: 800;
     color: rgb(114, 17, 17);
     padding-bottom: 30%;
+    max-width: 400px;
 }
 
-.coupon_list__add_coupon:hover{
-  color: rgb(255, 186, 186) !important;
+.coupon_list__add_coupon:hover {
+    color: rgb(255, 186, 186) !important;
 }
 
 .coupons_list__buttons {
@@ -160,8 +162,87 @@
 }
 
 .coupons_list__input {
-    font-size: 14px;
+    font-size: 14px; 
     background-color: bisque;
     color: rgb(114, 17, 17);
-    margin-right: 50px !important;
+    /* margin-right: 50px !important; */
 }
+
+.coupon_list__customer_spinner-container{
+    display: flex;
+    justify-content: center;
+    width: 92vw;
+    margin-top: 200px;
+}
+
+.coupon_list__company_spinner-container{
+    display: flex;
+    justify-content: center;
+    /* width: 92vw; */
+    margin-top: 120px;
+}
+
+
+@media (max-width: 1000px) {
+    .CouponsList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .coupons_list__input {
+        padding-left: initial;
+        padding-right: initial;
+        margin-right: initial !important;
+    }
+
+    .coupons_list__errorMessage{
+        /* margin-left: 30vw; */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .coupons_list__errorMessage {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
+
+    .coupon_list__form {
+        min-height: 600px;
+        padding: 8%;
+    }
+
+    .coupon_list__select {
+        text-align: center !important;
+    }
+
+    .coupons_list__input {
+        padding-left: initial;
+        padding-right: initial;
+    }
+
+    .coupon_list__form>* {
+        padding: 0 5px 0 5px;
+    }
+
+    .CouponsList {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

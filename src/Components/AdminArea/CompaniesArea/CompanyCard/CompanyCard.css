@@ -6,3 +6,12 @@
     text-align: center;
 }
 
+@media (max-width: 768px) {
+    .CompanyCard{
+        padding: 0 15px 0 15px;
+    }
+
+}
+
+
+

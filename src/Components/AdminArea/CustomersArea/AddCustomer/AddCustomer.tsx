@@ -37,7 +37,7 @@ export function AddCustomer(props: ParentProps): JSX.Element {
                 <div className="add_customer__div">
                     <input className="Grid_A add_customer__input" placeholder="Enter customer first name" type="text" required minLength={2} maxLength={99} {...register("firstName")} /><br />
                     <input className="Grid_B add_customer__input" placeholder="Enter customer last name" type="text" required minLength={2} maxLength={99} {...register("lastName")} /><br />
-                    <input className="Grid_C add_customer__input" placeholder="Enter customer email" type="text" required minLength={2} maxLength={99} {...register("email")} /><br />
+                    <input className="Grid_C add_customer__input" placeholder="Enter customer email" type="email" required minLength={2} maxLength={99} {...register("email")} /><br />
                     <input className="Grid_D add_customer__input" placeholder="Enter customer password" type="text" required minLength={5} maxLength={99} {...register("password")} /><br />
                     <button className="Grid_E customized_button add_customer__buttons" type="submit">Save</button>
                     <button className="Grid_F customized_button add_customer__buttons" type="button" onClick={() => reset()}>Reset</button>

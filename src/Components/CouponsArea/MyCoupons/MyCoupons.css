@@ -1,5 +1,4 @@
-
-.sort_bar{
+.sort_bar {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -11,36 +10,40 @@
     margin: auto;
 }
 
-.my_coupons__sort_button{
-    background-color: rgb(97, 22, 22);
+.my_coupons__sort_button {
+    background-color: rgb(79, 21, 21);
     color: rgb(246, 161, 161);
     font-size: 18px;
-    padding: 10px;
     font-weight: 700;
     padding: 10px;
     margin: 10px;
 }
 
-.my_coupons__sort_button:hover{
-    background-color: rgb(79, 21, 21);
+.my_coupons__sort_button:hover {
     color: rgb(255, 186, 186);
-
 }
 
-.MuiInputBase-root{
+.MuiInputBase-root {
     width: 60px !important;
     color: pink !important;
 }
 
-.css-13vpke-MuiSlider-root{
+.css-13vpke-MuiSlider-root {
     color: pink !important;
 }
 
-.MuiInputBase-input{
+.MuiInputBase-input {
     color: pink !important;
 
 }
 
-.MuiInputBase-root button{
+.MuiInputBase-root button {
     color: aqua !important;
+}
+
+@media (max-width: 768px) {
+    .my_coupons__sort_button {
+        margin: 5px;
+        padding: 10px;
+    }
 }

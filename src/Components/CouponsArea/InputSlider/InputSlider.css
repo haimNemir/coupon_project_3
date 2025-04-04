@@ -1,7 +1,7 @@
 
 .svgImage{
-    max-width: 2vw;
-    max-height: 2vw;
+    max-width: 25px;
+    max-height: 25px;
 }
 
 .sliderBox{
@@ -13,5 +13,4 @@
     background-color: rgb(79, 21, 21);
     color: rgb(255, 186, 186);
     border-radius: 8px;
-    border: 3px solid grey;
 }
