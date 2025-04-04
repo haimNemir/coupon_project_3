@@ -67,14 +67,12 @@ export function OpenAiChat(): JSX.Element {
                             </div>
                         </div>
                         <div className='openAi_chat__body--opend openAi_chat__grid'>
-                            <div className='openAi_chat__previous_questions_answers'>
                                 {chatHistory.map((entery, index) => (
                                     <div key={index} className='openAi_chat__conversation'>
-                                        <p className='openAi_chat__question'>{entery.question} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum odit, ea ratione minus veritatis vitae labore quibusdam quasi dicta neque accusantium qui aut? Est rem facilis suscipit accusantium, velit aspernatur accusamus minus maiores, dignissimos nemo fuga tempora consectetur dicta odit eius impedit sunt quae pariatur obcaecati consequuntur rerum, iure dolore.</p>
-                                        <p className='openAi_chat__answer'>{entery.answer} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, sapiente.</p>
+                                        <p dir='auto' className='openAi_chat__question'>{entery.question} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum odit, ea ratione minus veritatis vitae labore quibusdam quasi dicta neque accusantium qui aut? Est rem facilis suscipit accusantium, velit aspernatur accusamus minus maiores, dignissimos nemo fuga tempora consectetur dicta odit eius impedit sunt quae pariatur obcaecati consequuntur rerum, iure dolore.</p>
+                                        <p dir='auto' className='openAi_chat__answer'>{entery.answer} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, sapiente.</p>
                                     </div>
                                 ))}
-                            </div>
                             <textarea
                                 className='openAi_chat__textarea openAi_chat__grid_textarea'
                                 value={promptState}

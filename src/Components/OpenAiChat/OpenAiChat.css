@@ -118,7 +118,7 @@
 
 .openAi_chat__grid {
     display: grid;
-    /* grid-template-rows: 15% auto auto 50%; */
+    grid-template-rows: 15% auto 10%;
     box-sizing: border-box;
     grid-template-areas:
         "HISTORY HISTORY HISTORY"
@@ -148,12 +148,8 @@
     grid-area: Textarea;
 }
 
-.openAi_chat__previous_questions_answers{
-    grid-area: HISTORY;
-    
-}
-
 .openAi_chat__conversation{
+    grid-area: HISTORY;
     display: flex;
     flex-direction: column;
     height: 100%;
