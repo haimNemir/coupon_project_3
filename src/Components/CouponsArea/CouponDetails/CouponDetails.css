@@ -270,6 +270,10 @@
     text-align: center;
 }
 
+.coupon_details__customer_spinner-container{
+    width: 100vw !important;
+}
+
 
 
 @media (max-width: 1250px) {

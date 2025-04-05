@@ -1,7 +1,8 @@
 .OpenAiChat {
     z-index: 1;
-    
 }
+
+
 
 .openAi_chat__div {
     border-radius: 0 100px 100px 0;
@@ -12,7 +13,6 @@
     display: flex;
     justify-content: end;
     align-items: center;
-
     position: fixed;
     left: -148px;
     top: 88%;
@@ -33,7 +33,6 @@
 
 .openAi_chat__div--onClick {
     width: 350px;
-    height: 47%;
     opacity: 1;
     border: 2px solid rgb(79, 21, 21);
     border-left: none;
@@ -42,18 +41,16 @@
     border-radius: 0 15px 15px 0;
     padding: 10px;
     box-sizing: border-box;
-
     position: fixed;
-    top: 51%;
+    top: 50%;
     left: 0;
     transition: all 0.3s ease-in-out;
 
-    
+
 }
 
 .openAi_chat__div--expand {
     width: 95%;
-    height: 60%;
     opacity: 1;
     border: 2px solid rgb(79, 21, 21);
     border-left: none;
@@ -62,9 +59,11 @@
     border-radius: 0 15px 15px 0;
     padding: 10px;
     box-sizing: border-box;
+    max-width: 1000px;
+    max-height: 1000px;
 
     position: fixed;
-    top: 38%;
+    top: 40%;
     left: 0;
     transition: all 0.3s ease-in-out;
 }
@@ -93,8 +92,10 @@
 }
 
 .openAi_chat__body--opend {
-    height: 100%;
-    
+    height: 32vh;
+    overflow: scroll;
+    padding-right: 13px;
+    padding-left: 13px;
 }
 
 .openAi_chat__textarea {
@@ -103,101 +104,99 @@
     border: none;
     padding: 10px;
     background-color: rgb(254, 238, 219);
-    overflow: visible;
     color: rgb(79, 21, 21);
     resize: none;
-    width: 80%;
-    margin-bottom: 20px;
+    width: 100%;
     margin-left: 1px;
+    font-family: 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    font-weight: 600;
 }
 
 .openAi_chat__textarea:focus {
-    outline: 1.5px solid rgb(79,21,21);  
+    outline: none;
 
 }
 
-.openAi_chat__grid {
-    display: grid;
-    grid-template-rows: 15% auto 10%;
-    box-sizing: border-box;
-    grid-template-areas:
-        "HISTORY HISTORY HISTORY"
-        "Resp Resp Resp"
-        "Textarea Textarea Button"
-        
-    ;
-    column-gap: 5px;
-    row-gap: 5px;
 
-}
-
-.openAi_chat__controls_buttons{
+.openAi_chat__controls_buttons {
     max-width: 60px;
-    grid-area: CB;
     display: flex;
     flex-direction: row;
     justify-self: end;
+    background-color: rgb(255, 226, 192);
 }
 
 
-.openAi_chat__grid_openAi_image {
-    grid-area: image;
+.openAi_chat__conversation {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 226, 192);
 }
 
-.openAi_chat__grid_textarea {
-    grid-area: Textarea;
-}
-
-.openAi_chat__conversation{
+.openAi_chat__conversation_collapse {
     grid-area: HISTORY;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: scroll;
-    background-color: aquamarine;
+    background-color: rgb(255, 226, 192);
 }
 
-.openAi_chat__question{
+.openAi_chat__answer:last-child {
+    background-color: rgb(79, 21, 21);
+    color: rgb(255, 186, 186);
+    font-size: 14px;
+}
+
+
+.openAi_chat__question {
     padding-bottom: 10px;
     width: fit-content;
     background-color: rgb(242, 206, 163);
-    color: rgb(79,21,21);  
+    color: rgb(79, 21, 21);
     max-width: 80%;
     border-radius: 10px;
-    padding: 20px 20px 20px 15px;
+    padding: 12px;
     box-sizing: border-box;
     font-size: 16px;
     font-weight: 600;
     align-self: flex-start;
 }
 
-.openAi_chat__answer{
+.openAi_chat__answer {
     width: fit-content;
     background-color: rgb(247, 216, 177);
-    color: rgb(79,21,21);  
+    color: rgb(79, 21, 21);
     max-width: 80%;
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 16px;
     font-weight: 600;
     align-self: flex-end;
-    padding: 20px 15px 20px 20px;
-
+    padding-right: 12px;
+    padding-left: 12px;
 }
 
-.openAi_chat__chat_list{
+.openAi_chat__chat_list {
     grid-area: CHAT;
 }
 
-.openAi_chat__grid_send_button {
-    grid-area: Button;
-    width: 35px !important;
-    height: 35px !important;
+.openAi_chat__send_button {
+    display: flex;
     justify-self: center;
     align-self: center;
-   
+    margin-right: 10px;
+    background-color: rgb(254, 238, 219);
+    border-radius: 10px;
+    border: none;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: padding 0.3s ease-in-out;
 }
 
+.openAi_chat__send_button:hover {
+    padding: 2px;
+    box-sizing: border-box;
+}
 
 .openAi_chat__grid_response {
     grid-area: Resp;
@@ -216,7 +215,7 @@
 
 
 .openAi_chat__svg_button {
-    background-color: bisque;
+    background-color: rgb(255, 226, 192);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -239,9 +238,134 @@
     width: 25%;
 }
 
-.openAi_chat__header{
+.openAi_chat__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
+}
 
+.openAi_chat__footer {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(254, 238, 219);
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    justify-self: end;
+    align-self: flex-end;
+}
+
+.openAi_chat__footer:focus-within {
+    outline: 1.5px solid rgb(79, 21, 21)
+}
+
+.openAi_chat__footer_expanded {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(254, 238, 219);
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    justify-self: end;
+    align-self: flex-end;
+}
+
+.openAi_chat__footer_expanded:focus-within {
+    outline: 1.5px solid rgb(79, 21, 21)
+}
+
+.openAi_spinner-container {
+    transform: scale(0.3) !important;
+    height: 60px !important;
+}
+
+.openAi_chat__body--expaded {
+    height: 40vh;
+    overflow: scroll;
+    padding-right: 13px;
+    padding-left: 13px;
+}
+
+.openAi_chat__div_highlight{
+    opacity: 1;
+    border: 2px solid rgb(79, 21, 21);
+    background-color: rgb(255, 226, 192);
+    box-shadow: 0 0 1.5px 1.5px rgb(79, 21, 21);
+    height: 60px;
+    padding: 5px;
+    cursor: pointer;
+    top: 87.5%;
+}
+
+@media (max-width: 1280px) {
+    .openAi_chat__div--onClick {
+        top: 43%;
+        width: 34%;
+    }
+
+    .openAi_chat__div--expand {
+        top: 8%;
+        height: 90%;
+    }
+
+    .openAi_chat__body--expaded {
+        height: 68vh;
+        overflow: scroll;
+        padding-right: 13px;
+        padding-left: 13px;
+    }
+
+    .openAi_chat__footer_expanded {
+        height: 10vh;
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(254, 238, 219);
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        justify-self: end;
+        align-self: flex-end;
+    }
+
+    .openAi_chat__footer_expanded:focus-within {
+        outline: 1.5px solid rgb(79, 21, 21)
+    }
+
+}
+
+@media (max-width: 768px) {
+    .openAi_chat__div--onClick {
+        top: 44%;
+        width: 95%;
+    }
+
+    .openAi_chat__div--expand {
+        top: 8%;
+        height: 90%;
+    }
+
+    .openAi_chat__body--expaded {
+        height: 68vh;
+        overflow: scroll;
+        padding-right: 13px;
+        padding-left: 13px;
+    }
+
+    .openAi_chat__footer_expanded {
+        height: 10vh;
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(254, 238, 219);
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        justify-self: end;
+        align-self: flex-end;
+    }
+
+    .openAi_chat__footer_expanded:focus-within {
+        outline: 1.5px solid rgb(79, 21, 21)
+    }
 }

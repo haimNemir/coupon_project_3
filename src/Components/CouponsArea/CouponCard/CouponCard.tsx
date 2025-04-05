@@ -19,7 +19,7 @@ export function CouponCard(props: CouponProps): JSX.Element {
 		navigate(`/get_one_coupon/${props.coupon.id}`, { state: { showPurchase: showPurchaseButton } }) // send to <CouponDetails/> the value of showPurchaseButton.
 	}
 
-	return (
+	return ( 
 		<div className="customized_card coupon_card__card" onClick={navigateToDetails}> {/*go to <CouponDetails/> */}
 			<h2 className="coupon_title">	<span>{props.coupon.title}</span></h2>
 			<p>Company name:<span>   {props.coupon.company.name}</span></p>

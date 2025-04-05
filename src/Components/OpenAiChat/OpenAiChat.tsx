@@ -1,27 +1,35 @@
 import openAiImage from '../../assets/OpenAi-icon.svg';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./OpenAiChat.css";
 import openAiService from "../../Services/OpenAiService";
+import ReactMarkdown from 'react-markdown';
+
 
 export function OpenAiChat(): JSX.Element {
 
     const [showPopup, setShowPopup] = useState<boolean>(false)
     const [expandPopup, setExpandPopup] = useState<boolean>(false)
+    const [loadingSign, setLoadingSign] = useState<boolean>(false)
 
     type ChatEntry = { question: string; answer: string }; // -- type ChatEntry -- like interfase, using to defined a type of an object, over her is a "key,value -pair" of the previous question and answer.
     const promptRef = useRef<string>("") // useRef is a synchronized object, he will change in the same moment of the changing, but he will not make a render of the page. we use the value inside like this: promptRef.current
     const [promptState, setPromptState] = useState(''); // Current question of the user.
-    const [responseState, setResponseState] = useState(''); // Current answer of the chat.
     const [chatHistory, setChatHistory] = useState<ChatEntry[]>([]) // save a list of ChatEntry
     function sendMessage() {
+        setLoadingSign(true)
         const currentPrompt = promptRef.current // we save the value in a teporary const (after the render the value will be initialized to empty) to prevent saving a wrong data inside the question in the chatHistory list, because the value can change between the sending and the saving because the sending is async and some others reasons, so its best practic to save it in a const.  
         promptRef.current = "" // initialized the current prompt to let the next question to be write.
         setPromptState("")
-
+        setChatHistory(previousValues => [...previousValues, { question: currentPrompt, answer: "" }]) // Entering the question to the DOM emmeditaly
+        const index = chatHistory.length // save the last object index in the list
         openAiService.sendMessage(currentPrompt)
             .then(result => {
-                setResponseState(result);
-                setChatHistory(previousValues => [...previousValues, { question: currentPrompt, answer: result }]) // Here we take the new question/answer + all the previous objects in the list and create a new(!) useState with all those value because you cant add value to useState, you can only swith the value inside with another data. -- setChatHistory(previousValues => [...previousValues, ...}]) -- the sign of three dots (...pre) is called spreading objects, this mean he will take the all objects inside a list and spread them in the new list we are creating like this: {Object A, Object B, Object C, Object D}.
+                setChatHistory(previousValues => {// Here we take the new question/answer + all the previous objects in the list and create a new(!) useState with all those value because you cant add value to useState, you can only switch the value inside with another data. -- setChatHistory(previousValues => [...previousValues, ...}]) -- the sign of three dots (...pre) is called spreading objects, this mean he will take the all objects inside a list and spread them in the new list we are creating like this: {Object A, Object B, Object C, Object D}.
+                    const updated = [...previousValues]; // we save the list in const type because like so we can add a new object to the list, unlike useState that you cant update a value inside it, you can only update the hole list inside.
+                    updated[index] = { ...updated[index], answer: result } // -- ...updated[index] -- The value of ...updated[index] equals to - "question: currentPrompt" exactly. and if so we creating here a new object over the old object with question and answer
+                    return updated
+                });
+                setLoadingSign(false);
             })
             .catch(error => {
                 const errorMessage =
@@ -33,16 +41,33 @@ export function OpenAiChat(): JSX.Element {
             });
     }
 
-    const closedClassName = "openAi_chat__div"
+    const bottomScrollingRef = useRef<HTMLDivElement | null>(null) //for decorations
+    useEffect(() => {
+        bottomScrollingRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [chatHistory])
+
+    const [highlightChat, setHighlightChat] = useState(false); //creating setInterval for highlight chatGPT icon per 20 second
+    useEffect(()=>{
+        const interval = setInterval(()=>{
+            setHighlightChat(true);
+            setTimeout(()=> setHighlightChat(false), 800)
+        }, 15000)
+        return () => clearInterval(interval) //in case the interval will be brake in the middle of action, the interval will be clean and will stop. 
+    },[])
+
     const openClassName = "openAi_chat__div--onClick"
     const expandClassName = "openAi_chat__div--expand"
 
     return (
         <div className="OpenAiChat">
-            <div className={showPopup && expandPopup ? expandClassName : showPopup && !expandPopup ? openClassName : closedClassName} onClick={() => { setShowPopup(true) }}>
+            <div className={showPopup && expandPopup ? expandClassName 
+            :showPopup && !expandPopup 
+            ? openClassName 
+            :`openAi_chat__div ${highlightChat ? "openAi_chat__div_highlight" : ""}`} 
+                 onClick={() => { setShowPopup(true) }}>
                 {!showPopup ? <img className='openAi_chat__div__svg--closed' src={openAiImage} alt="icon of open ai" /> : ""}
                 {showPopup ?
-                    <div className={'openAi_chat__popup'}>
+                    <div className='openAi_chat__popup'>
                         <div className='openAi_chat__header'>
                             <img className="openAi_chat__div__svg--opened openAi_chat__grid_openAi_image" src={openAiImage} alt="icon of open ai" />
                             <p className='openAi_chat__div__title'>Ai assistant</p>
@@ -66,13 +91,18 @@ export function OpenAiChat(): JSX.Element {
                                 </button>
                             </div>
                         </div>
-                        <div className='openAi_chat__body--opend openAi_chat__grid'>
-                                {chatHistory.map((entery, index) => (
-                                    <div key={index} className='openAi_chat__conversation'>
-                                        <p dir='auto' className='openAi_chat__question'>{entery.question} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum odit, ea ratione minus veritatis vitae labore quibusdam quasi dicta neque accusantium qui aut? Est rem facilis suscipit accusantium, velit aspernatur accusamus minus maiores, dignissimos nemo fuga tempora consectetur dicta odit eius impedit sunt quae pariatur obcaecati consequuntur rerum, iure dolore.</p>
-                                        <p dir='auto' className='openAi_chat__answer'>{entery.answer} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, sapiente.</p>
+                        <div className={expandPopup ? "openAi_chat__body--expaded":'openAi_chat__body--opend'}>
+                            {chatHistory.map((entry, index) => (
+                                <div key={index} className={expandPopup ? 'openAi_chat__conversation' : "openAi_chat__conversation_collapse"}>
+                                    <p dir='auto' className='openAi_chat__question'>{entry.question}</p>
+                                    <div dir='auto' className='openAi_chat__answer'>
+                                        <ReactMarkdown>{entry.answer}</ReactMarkdown> {/*make the response presented as we get it from the chat, this mean when the chat will write **bold letter** is will so as bold with no stars. */}
                                     </div>
-                                ))}
+                                </div>
+                            ))}
+                            <div ref={bottomScrollingRef}></div> {/* -- ref --  Is using for reference this Div from the TS code*/}
+                        </div>
+                        <div className={expandPopup ?'openAi_chat__footer_expanded': "openAi_chat__footer"}>
                             <textarea
                                 className='openAi_chat__textarea openAi_chat__grid_textarea'
                                 value={promptState}
@@ -82,22 +112,24 @@ export function OpenAiChat(): JSX.Element {
                                 }
                                 }
                                 placeholder="Ask something..."
+                                dir='auto'
+                                disabled={loadingSign === true}
                             />
-                            
-
-                            {responseState && (
-                                <div className='openAi_chat__grid_response'>
-                                    {responseState}
+                            {!loadingSign ?
+                                <button
+                                    disabled={promptRef.current.trim().length === 0} // check if the user enter any question, if not he will not allowed to send the message
+                                    className='openAi_chat__send_button'
+                                    onClick={() => {
+                                        sendMessage();
+                                    }} >
+                                    <svg width="35px" height="35px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4f1515"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#4f1515" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"></path></g></svg>
+                                </button>
+                                :
+                                <div className="spinner-container openAi_spinner-container">
+                                    <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                                 </div>
-                            )}
-                            <button
-                                disabled={promptRef.current.trim().length === 0} // check if the user enter any question, if not he will not allowed to send the message
-                                className='openAi_chat__grid_send_button openAi_chat__svg_button'
-                                onClick={() => {
-                                    sendMessage();
-                                }} >
-                                <svg width="35px" height="35px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4f1515"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#4f1515" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"></path></g></svg>
-                            </button>
+                            }
+
                         </div>
                     </div>
                     : ""
@@ -108,4 +140,4 @@ export function OpenAiChat(): JSX.Element {
     );
 }
 
-//Fix: in hebrow test right to left. and font family. when we send a message, the button is disabled and have a rolling spiner.
+//Set interval

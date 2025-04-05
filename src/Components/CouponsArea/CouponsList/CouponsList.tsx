@@ -166,7 +166,7 @@ export function CouponsList(props: CouponsListProps): JSX.Element {
                             <div className="coupon_list__customer_spinner-container">
                                 <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                             </div>
-                            :
+                            : 
 
                             allCoupons.length > 0 ?
                                 allCoupons?.map(coupon => <CouponCard key={coupon.id} coupon={coupon} />)

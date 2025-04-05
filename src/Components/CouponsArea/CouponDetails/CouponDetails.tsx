@@ -25,19 +25,24 @@ export function CouponDetails(): JSX.Element {
     //gets here the Company Coupons:
     const [companyCoupons, setCompanyCoupons] = useState<Coupon[]>([])
 
+    const [fetchingData, setFetchingData] = useState<boolean>(true) //to show spinning roller until the data will come
     useEffect(() => {
         // handle Customer client, get one customer coupon
         if (clientType === "Customer") {
             customerService.getOneCoupon(couponId)
-                .then(getCoupon => setCoupon(getCoupon))
+                .then(getCoupon => {
+                    setCoupon(getCoupon);
+                    setFetchingData(false)
+                })
                 .catch(error => setError(error.response.data))
             // handle Company client, gets all company coupons        
         } else if (clientType === "Company") {
             if (companyCoupons.length === 0) {
                 companyService.getCompanyCoupons()
                     .then(couponsList => {
-                        setCompanyCoupons(couponsList)
-                        findCoupon(couponsList)
+                        setCompanyCoupons(couponsList);
+                        findCoupon(couponsList);
+                        setFetchingData(false)
                     })
                     .catch(error => alert(error))
             } else {
@@ -127,8 +132,8 @@ export function CouponDetails(): JSX.Element {
         <div className="CouponDetails">
 
             {
-                error ? <p>
-                    {error}</p> :
+                error ?
+                    <p>{error}</p> :
                     editMode ?
                         <form className="coupon_details__form" onSubmit={handleSubmit(submitUpdateCoupon)}>
                             <h2 className="coupon_details__title coupon_details__grid_title">Update coupon</h2>
@@ -158,26 +163,30 @@ export function CouponDetails(): JSX.Element {
                             <button className="customized_button coupon_details__button coupon_details__button_L" type="button" onClick={() => { reset(); resetPopup() }}>Reset</button>
                             <button className="customized_button coupon_details__button coupon_details__button_M" type="button" onClick={handleClick}>Close</button>
                         </form>
-                        :
-                        <div className="oldCouponDetails">
-                            {clientType === "Company" && <p className="coupon_details__old_title">Update coupon</p>}
-                            {clientType === "Customer" && <p className="coupon_details__old_title">{coupon?.title}</p>}
-                            <div className="old_coupon_p">Serial number:</div>     <span className="old_coupon__span">{coupon?.id}</span><br />
-                            <div className="old_coupon_p">Title:</div>         <span className="old_coupon__span">{coupon?.title}</span><br />
-                            <div className="old_coupon_p">Category:</div>      <span className="old_coupon__span">{coupon?.category.charAt(0)! + coupon?.category.slice(1).toLowerCase()}</span><br />
-                            <div className="old_coupon_p">Company name:</div>  <span className="old_coupon__span">{coupon?.company.name}</span><br />
-                            <div className="old_coupon_p">Price:</div>         <span className="old_coupon__span">{coupon?.price}</span><br />
-                            <div className="old_coupon_p">Description:</div>   <span title={coupon?.description} className="old_coupon__span">{coupon?.description}</span><br />
-                            <div className="old_coupon_p">Start date:</div>    <span className="old_coupon__span">{moment(coupon?.startDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
-                            <div className="old_coupon_p">End date:</div>      <span className="old_coupon__span">{moment(coupon?.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
-                            <div className="old_coupon_p">Left in stock:</div> <span className="old_coupon__span">{coupon?.amount}</span><br />
-                            {/* <div className="old_coupon_p">Image:</div>         <span className="old_coupon__span">{coupon?.image}</span><br /> */}
-                            <div className="buttons-area">
-                                {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleClick}>Edit coupon</button>}
-                                {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleDelete}>Delete coupon</button>}
-                                {clientType === "Customer" && showPurchaseButton.state?.showPurchase !== false && <div className="coupon_details__purchase_button"> <PurchaseCoupon couponId={coupon?.id!} /></div>}
+                        : fetchingData ?
+                            <div className="coupon_list__customer_spinner-container coupon_details__customer_spinner-container">
+                                <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                             </div>
-                        </div>
+
+                            : <div className="oldCouponDetails">
+                                {clientType === "Company" && <p className="coupon_details__old_title">Update coupon</p>}
+                                {clientType === "Customer" && <p className="coupon_details__old_title">{coupon?.title}</p>}
+                                <div className="old_coupon_p">Serial number:</div>     <span className="old_coupon__span">{coupon?.id}</span><br />
+                                <div className="old_coupon_p">Title:</div>         <span className="old_coupon__span">{coupon?.title}</span><br />
+                                <div className="old_coupon_p">Category:</div>      <span className="old_coupon__span">{coupon?.category.charAt(0)! + coupon?.category.slice(1).toLowerCase()}</span><br />
+                                <div className="old_coupon_p">Company name:</div>  <span className="old_coupon__span">{coupon?.company.name}</span><br />
+                                <div className="old_coupon_p">Price:</div>         <span className="old_coupon__span">{coupon?.price}</span><br />
+                                <div className="old_coupon_p">Description:</div>   <span title={coupon?.description} className="old_coupon__span">{coupon?.description}</span><br />
+                                <div className="old_coupon_p">Start date:</div>    <span className="old_coupon__span">{moment(coupon?.startDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
+                                <div className="old_coupon_p">End date:</div>      <span className="old_coupon__span">{moment(coupon?.endDate).format("DD[/]MM[/]YYYY, HH:mm")}</span><br />
+                                <div className="old_coupon_p">Left in stock:</div> <span className="old_coupon__span">{coupon?.amount}</span><br />
+                                {/* <div className="old_coupon_p">Image:</div>         <span className="old_coupon__span">{coupon?.image}</span><br /> */}
+                                <div className="buttons-area">
+                                    {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleClick}>Edit coupon</button>}
+                                    {clientType === "Company" && <button className="customized_button oldCouponDetails-Edit_coupon" onClick={handleDelete}>Delete coupon</button>}
+                                    {clientType === "Customer" && showPurchaseButton.state?.showPurchase !== false && <div className="coupon_details__purchase_button"> <PurchaseCoupon couponId={coupon?.id!} /></div>}
+                                </div>
+                            </div>
             }
 
         </div>
